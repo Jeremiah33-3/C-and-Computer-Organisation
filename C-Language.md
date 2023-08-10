@@ -21,3 +21,12 @@
   - always return 0 (by convention, returning non-zeros [signals that an error occurred](https://stackoverflow.com/questions/18446686/main-function-in-c))
   - exceution of statements inside the curly braces (definition, body of the main() function)
 - Sub-programs: user-declared functions  
+
+## [Tokens](https://www.geeksforgeeks.org/tokens-in-c/?ref=lbp)
+
+> smallest individual element in C that is meaningful to the compiler
+> keywords, identifiers, constants, strings, special symbols, operators
+
+- **[Keywords](https://devdocs.io/c-c-keywords/)**
+
+predefined, reserved words (unable to redefine) 
