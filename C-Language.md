@@ -28,8 +28,11 @@
 > keywords, identifiers, constants, strings, special symbols, operators
 
 - **[Keywords](https://devdocs.io/c-c-keywords/)**
-> predefined, reserved words (unable to redefine) 
-32 of them in C
+> predefined, reserved words (unable to redefine)
+
+niche keywords
+- auto: default storage class variable (automatic storage duration); declared inside function/block; has garbage values assigned to them (local var)
+- enum: user-defined data type holding a list of user-defined integer constants, with value as its index starting from 0 by default 
 
 - **identifiers**
 > the namespace, var/const names
