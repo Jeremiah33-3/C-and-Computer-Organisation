@@ -30,9 +30,17 @@
 - **[Keywords](https://devdocs.io/c-c-keywords/)**
 > predefined, reserved words (unable to redefine)
 
-niche keywords
+"niche" keywords
 - auto: default storage class variable (automatic storage duration); declared inside function/block; has garbage values assigned to them (local var)
-- enum: user-defined data type holding a list of user-defined integer constants, with value as its index starting from 0 by default 
+- enum: user-defined data type holding a list of user-defined integer constants, with value as its index starting from 0 by default
+- extern: declare a variable/function that has external linkage outside of the file declaration (getting the definition from another file)
+- [static](https://stackoverflow.com/questions/572547/what-does-static-mean-in-c): create static var that is used within the scope of the translation unit
+  - preserve states and allow encapsulation
+  - static var keeps its value between invocations if it's inside a functin
+  - A static global variable or a function is "seen" only in the file it's declared in
+- register: var stored in the CPU register instead of memory (for frquently used var and needs faster access)
+- struct: used to declare a structure, a collection of variables; user-defined data type
+- union: used to declare a union, a collection of var declared under the same memory location; user-defined datatype ([diff between union and struct](https://stackoverflow.com/questions/346536/difference-between-a-structure-and-a-union)
 
 - **identifiers**
 > the namespace, var/const names
@@ -65,3 +73,10 @@ Unary, Binary, and Ternary Operators:
   - Unary operators only require a single operand (increment, decrement)
   - binary require two operands (Arithmetic operators, Relational Operators, Logical Operators, Assignment Operators, Bitwise Operator)
   - ternary requires three operands (conditional operator ? : )
+
+External, internal, and no linkage
+_Sources:_
+_- https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage_
+- External linkage means the variable can be accessible by the whole program, not just within the same translation unit.
+- Internal linkage refers to variable only accessible within the scope of translation unit
+- default linkage is external 
