@@ -12,7 +12,20 @@ CS2100 says:
   - width: with printf(), %5d displays an int in a width of 5, right justified
   - decimal places: %8.3 display a real no (float or double) in a width of 8, with 3 decimal places, right justified.
   - for scanf(), use format specifiers without indicating width. decimal places...
-  - \n is an eg of [escape sequence](https://www.geeksforgeeks.org/escape-sequence-in-c/) -> to display certain characters (with special meaning, regex, newlines..) properly. 
+  - \n is an eg of [escape sequence](https://www.geeksforgeeks.org/escape-sequence-in-c/) -> to display certain characters (with special meaning, regex, newlines..) properly.
+- computation
+  - a function body has two parts
+  - declarations statements: tell compiler what type of memory cells needed
+    - declare use of var/const
+    - user-defined identifier (certain rules to follow)
+    - reserved words/[keywords](http://c.ihypress.ca/reserved.html)
+    - standard identifiers (names of common functions, avoid naming var/func as such)
+  - executable statements: describe the processing on the memory cells
+    - I/O statements (prinf..) and computational + assignment statements
+    - assignment statements store a value or a computational result in a var (also left side of '=' in assignment is called lvalue)
+      - lvalue must be asignable (invalid assignment is when an expr/value is put as the lvalue)
+      - assignment can be cascaded with [associativity](https://www.mathsisfun.com/associative-commutative-distributive.html) from [right to left](https://stackoverflow.com/questions/25589257/what-does-left-to-right-associativity-mean) (e.g. a = b = c= 3 + 6 which is equivalent to a = (b = (c = 3+6)) )
+  - side effect
 
 - Mainly 6 sections: Documentation, Header, Definition, Global Declaration, Main() function, Sub Program
 - Documentation: Description, in comments (optional)
@@ -38,7 +51,8 @@ CS2100 says:
 > keywords, identifiers, constants, strings, special symbols, operators
 
 - **[Keywords](https://devdocs.io/c-c-keywords/)**
-> predefined, reserved words (unable to redefine)
+> predefined, [reserved](http://c.ihypress.ca/reserved.html![image](https://github.com/Jeremiah33-3/C-and-Computer-Organisation/assets/111181492/4b899888-0ebf-44d9-a27a-dd4492b271ca)
+) words (unable to redefine)
 
 "niche" keywords
 - auto: default storage class variable (automatic storage duration); declared inside function/block; has garbage values assigned to them (local var)
