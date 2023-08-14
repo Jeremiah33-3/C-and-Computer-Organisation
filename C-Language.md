@@ -4,6 +4,16 @@
 - https://devdocs.io/c/
 
 ## Structure 
+
+CS2100 says:
+- a basic c program has 4 main parts: preprocessor directives (header, definition/macro expansions), input (thru stdin's scanf or file input), compute (arithmetic operations and assignment statements), output (thru stdout using printf, or file output)
+- input/output
+  - [format specifiers](https://www.geeksforgeeks.org/format-specifiers-in-c/), which are placeholders for values to be displayed or read
+  - width: with printf(), %5d displays an int in a width of 5, right justified
+  - decimal places: %8.3 display a real no (float or double) in a width of 8, with 3 decimal places, right justified.
+  - for scanf(), use format specifiers without indicating width. decimal places...
+  - \n is an eg of [escape sequence](https://www.geeksforgeeks.org/escape-sequence-in-c/) -> to display certain characters (with special meaning, regex, newlines..) properly. 
+
 - Mainly 6 sections: Documentation, Header, Definition, Global Declaration, Main() function, Sub Program
 - Documentation: Description, in comments (optional)
 - Header (preprocessor) :
@@ -80,4 +90,18 @@ _- https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-inte
 - External linkage means the variable can be accessible by the whole program, not just within the same translation unit.
 - Internal linkage refers to variable only accessible within the scope of translation unit default linkage is external
 
-## Variables 
+## Common header files
+
+### Stdio.h
+> utility functions
+
+1. sizeof(data type)
+  - gets the size of the data type in bytes (e.g. sizeof(int))
+2. scanf()
+3. printf()
+
+### math.h
+> for mathematical functions (need to compile with -lm option in sunfire)
+
+### string.h 
+> for string functions
