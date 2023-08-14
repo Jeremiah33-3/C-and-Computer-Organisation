@@ -78,5 +78,6 @@ External, internal, and no linkage
 _Sources:_
 _- https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-internal-linkage_
 - External linkage means the variable can be accessible by the whole program, not just within the same translation unit.
-- Internal linkage refers to variable only accessible within the scope of translation unit
-- default linkage is external 
+- Internal linkage refers to variable only accessible within the scope of translation unit default linkage is external
+
+## Variables 
