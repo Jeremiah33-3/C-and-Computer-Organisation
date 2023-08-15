@@ -36,6 +36,9 @@ CS2100 says:
       - lvalue must be asignable (invalid assignment is when an expr/value is put as the lvalue)
       - assignment can be cascaded with [associativity](https://www.mathsisfun.com/associative-commutative-distributive.html) from [right to left](https://stackoverflow.com/questions/25589257/what-does-left-to-right-associativity-mean) (e.g. a = b = c= 3 + 6 which is equivalent to a = (b = (c = 3+6)) )
   - side effect
+    - as assignment statement incur side effect which is returning the value of its right-hand side expr apart from assigning the value to the var
+    - useful to double assign (e.g. z = a = 12)
+    - but avoid convuluted code (e.g. a = 5 + (b = 10))
 
 - Mainly 6 sections: Documentation, Header, Definition, Global Declaration, Main() function, Sub Program
 - Documentation: Description, in comments (optional)
@@ -62,7 +65,7 @@ Notes on preprocessor directives:
   - define a macro for a constant value and can even take arguments
   - #define PI 3.142 e.g.
   - C compiler will substitute every code that matches the macro defined with the value specified during compilation.
-  - do not put semicolon at the end 
+  - do not put semicolon at the end
 
 ## [Tokens](https://www.geeksforgeeks.org/tokens-in-c/?ref=lbp)
 
@@ -118,6 +121,23 @@ Unary, Binary, and Ternary Operators:
   - Unary operators only require a single operand (increment, decrement)
   - binary require two operands (Arithmetic operators, Relational Operators, Logical Operators, Assignment Operators, Bitwise Operator)
   - ternary requires three operands (conditional operator ? : )
+
+Arithmetic operations (in order of precedence):
+1. primary expr operators ( (), expr++, expr--) is left associative 
+2. unary operators (+, -, ++, --, (_typecast_) is right associate (e.g. x = -23)
+3. binary operators (+, -, *, /, %) is left associative
+4. assignment operators (+=, *=..)
+- generally: execution is left associative, respects parentheses rule, then precedence rule, then associative rule
+- truncate result if result can't be stored  (e.g. int n...; n = 9 * 4.5)
+- [pre-increment (++expr) vs post increment (expr++) ](https://www.geeksforgeeks.org/pre-increment-and-post-increment-in-c/)
+- ❗ note: in python, % is modulo, but in C, % is remainder 
+
+Mixed-type arthmetic operators:
+- when type casting and arithemetic operations occur in a statement
+- which leads to **type casting**
+  - use a cast operator to change the type of an expr
+  - syntax: (type) expr
+  - parenthesus are important -> (type) aa/bb or (type) (aa//bb)
 
 External, internal, and no linkage
 _Sources:_
