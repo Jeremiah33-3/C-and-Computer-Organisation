@@ -40,7 +40,8 @@ Computer organisation:
 An architecture that describes a computer consisting of 
 1. central processing unit (CPU) with registers, control unit (containment of instruction register and program counter) and arithmetic/logic unit (ALU)
 2. memory which stores both program and data in random-access memory (RAM)
-3. I/O devices
+   - 3 types of mem: RAM, ROM, Flash (kind of RAM but retains mem when power is switched off)
+4. I/O devices (keyboard, screen...)
 
 ![model to display this architecture](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Von_Neumann_Architecture.svg/600px-Von_Neumann_Architecture.svg.png)
 
@@ -57,7 +58,8 @@ An architecture that describes a computer consisting of
   - int: 4 bytes (-21^31 to 2^31 - 1)
   - float: 4 bytes 
   - double: 8 bytes
-  - char: 1 byte (enclosed in a pair of single quotes)
+  - char: 1 byte (enclosed in a pair of single quotes) -> char is just a 8-bit integrer in C
+- note: [signed: take both positive and negative values](https://stackoverflow.com/questions/621290/what-is-the-difference-between-signed-and-unsigned-variables) 
 - strongly types vs weakly typed
   - strongly: evrey var needs to be declared with a type vs weakly: type depends on how the var is used
   - other aspects: static/dynamic type checking, safe type checking, type conversions
