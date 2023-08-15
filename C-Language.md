@@ -3,10 +3,20 @@
 ## [Documentation](https://devdocs.io/c/)
 - https://devdocs.io/c/
 
+## edit, compile, exceute 
+
+- for python and JS, there is a REPL in the printer to see the result printed on screen, but not C (not compile and print on the fly)
+- in C, program is first comfiled into assembly language then machine language; we run in machine language (directly understood by the processor) -> that's what make C so fast, but is slightly inconvenient
+  - cycle: editor to create file, c compiler to compile into machine code, execute the machine code -- if incorrect, cycle repeats
+    1. vim file.c -> (produces) source code file.c (editing)
+    2. gcc file.c -> (produces) a.out (machine code, compiling)
+    3. run a.out -> (produces) output (execute)
+  - note while editing, indentation is optional but encouraged (for readability) 
+
 ## Structure 
 
 CS2100 says:
-- a basic c program has 4 main parts: preprocessor directives (header, definition/macro expansions), input (thru stdin's scanf or file input), compute (arithmetic operations and assignment statements), output (thru stdout using printf, or file output)
+- a basic c program has 4 main parts: preprocessor directives (header, definition/macro expansions -> **instructions for compiler**), input (thru stdin's scanf or file input), compute (arithmetic operations and assignment statements), output (thru stdout using printf, or file output)
 - input/output
   - [format specifiers](https://www.geeksforgeeks.org/format-specifiers-in-c/), which are placeholders for values to be displayed or read
   - width: with printf(), %5d displays an int in a width of 5, right justified
@@ -16,9 +26,9 @@ CS2100 says:
 - computation
   - a function body has two parts
   - declarations statements: tell compiler what type of memory cells needed
-    - declare use of var/const
+    - declare use of var/const (must decalre type in C)
     - user-defined identifier (certain rules to follow)
-    - reserved words/[keywords](http://c.ihypress.ca/reserved.html)
+    - reserved words/[keywords](http://c.ihypress.ca/reserved.html) -> cannot be used as var name (identifier)
     - standard identifiers (names of common functions, avoid naming var/func as such)
   - executable statements: describe the processing on the memory cells
     - I/O statements (prinf..) and computational + assignment statements
@@ -70,7 +80,9 @@ CS2100 says:
 > the namespace, var/const names
 
 - **constants**
-> vairables with fixed values. cannot be redeclared once defined
+> vairables with fixed values. cannot be redeclared once defined.
+> a symbol whose value never changes (not in python, you can still change the value)
+- define using preprocessor directives: cannot simply change the value (disallowed in C) 
 
 - **strings**
 > array of characters ending with a null character (‘\0’).
