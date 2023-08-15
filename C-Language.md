@@ -55,6 +55,15 @@ CS2100 says:
   - exceution of statements inside the curly braces (definition, body of the main() function)
 - Sub-programs: user-declared functions  
 
+Notes on preprocessor directives:
+- it provides inclusion of header files, macro expansions, conditional compilation (under circumstances, code that is produced can change, and we can set what the code is compiled for what processor)
+- cs2100 focuses on header files and macro expansions
+- macro expansions
+  - define a macro for a constant value and can even take arguments
+  - #define PI 3.142 e.g.
+  - C compiler will substitute every code that matches the macro defined with the value specified during compilation.
+  - do not put semicolon at the end 
+
 ## [Tokens](https://www.geeksforgeeks.org/tokens-in-c/?ref=lbp)
 
 > smallest individual element in C that is meaningful to the compiler. 
@@ -124,6 +133,7 @@ _- https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-inte
 1. sizeof(data type)
   - gets the size of the data type in bytes (e.g. sizeof(int))
 2. scanf()
+  - note: scaf(%d, &age) -> need & for address of operator 
 3. printf()
 
 ### math.h
