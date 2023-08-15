@@ -1,5 +1,40 @@
 # Computer, number system, ands so on
 
+## Programming languages and computer organisation
+> a __formal__ language that speicifies a set of __instructions__ for a computer to implement specific algorithms to __solve problems__.
+
+Level of abstraction in descending order: 
+- high-level language: level of abstraction closer to problem domain, which prodvides productivity and portability (C, JS)
+- assembly lang: textual and symbolic representation of instructions (for the machine to understand), and is translated by a compiler. (for MIPS)
+- Machine code: a squence of 0s and 1s, binary bits of instrustions and data for the processor to understand, change by assembler, low-level langugae (for MIPS)
+
+Abstraction layers, hardware/software stack in the computer:
+- Software stack
+  - application software (cannot run directly on the computer -> needs additional software)
+  - additional software is provided through the *operating system.*
+    - loader, scheduler (run concurrency), device drivers
+  - compiler, aseembler, linker in the computer runs to produce the application software to run on the computer -- the bridge between application software and operating system
+- Hardware stack 
+  - processor, memory, I/O system (CS2100)
+    - underlining these 3 major parts are two important concepts of datapath & control design which apply in particular to processor (control unit)
+  - digital logic design (CS2100)
+  - circuit design 
+  - transistors
+- bridge bwtween software and hardware: instruction set architecture (ISA), 0s and 1s (CS2100)
+
+Parts of computer in more details (hardware):
+- PC Motherboard
+- Intel i7 processor
+  - inside the core (CPU): control unit and ALU
+ 
+Computer organisation:
+> the study of internal working, structuring and implementaion of a computer system
+- refers to the level of abstraction **above the digital logic level, but below the system level.**
+- why study:
+  - understand optimisation better
+  - make better purchasing decisions
+  - build better softwares
+
 ## [von Neumann Architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture)
 
 An architecture that describes a computer consisting of 
