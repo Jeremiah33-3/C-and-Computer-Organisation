@@ -67,6 +67,53 @@ Notes on preprocessor directives:
   - C compiler will substitute every code that matches the macro defined with the value specified during compilation.
   - do not put semicolon at the end
 
+## Control structures in C
+
+**Selection structures**
+-> C provides two control strcutres that allow you to select a group of statements to be executed or skipped when certain conditions are met
+1. if-else structures or just if(condition)
+2. switch statements
+   - switch(var/expr) + case value1... case value2... default
+   - if var/expr = value1 it will executes case value1
+   - need a break; (if you do not intend the execution to fall into the next case)
+  
+Condiion and relational operators (in details)
+- a condition is an expression eval to true or false
+- composed of expressions combined with relational operators
+- C does not have boolean values (everything is a number)
+  - false is 0, anything that is not 0 is true
+  - 1 is the default truthy value
+
+Logical operators:
+- complex condition: combining two or more Boolean expr
+- && || !
+- logical table is helpful
+
+Evaluation of Boolean expr:
+- done according to precedence and associativity
+  1. primary expr operators (left to right)
+  2. unary (right to left)
+  3. biary (left to right)
+     - * / % more + - more >,<,<=,>= more && more ||
+  5. ternary (right to left)
+  6. assignment (right to left)
+- note: to prevent ambiguity, add parentheses for readability and correct intents
+
+Short Circuit evalutaion (interesing feature in C)
+- C will not evaluate the logical expr if it knows it's false for sure (lazy evaluation)
+- as soon as it knows the outcome of expr, it can stop evaluating
+- || and &&
+
+**Reptition Structures**
+- loops
+- while ( condition ), do while( condition ), for (initialisation; condition; update)
+- do while's body is always going to be executed at least once but while will not execute if the expr is false at first loop
+- using break in a loop
+ - in a nested loop, break only break out of the inner most loop where it is declared
+- continue
+  - skip a value but continue to execute
+  - same as nested loop, it skipped a value within the nested loop 
+
 ## [Tokens](https://www.geeksforgeeks.org/tokens-in-c/?ref=lbp)
 
 > smallest individual element in C that is meaningful to the compiler. 
