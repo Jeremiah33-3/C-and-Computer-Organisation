@@ -65,3 +65,66 @@ An architecture that describes a computer consisting of
   - other aspects: static/dynamic type checking, safe type checking, type conversions
   - implitcit type conversions [in C](https://www.geeksforgeeks.org/implicit-type-conversion-in-c-with-examples/)
   - C allows pointer values to be explicitly cast
+
+## Data representation and Number Sytem 
+
+Everthing is a number in C... But how are they representated as numbers? -> 0s (<1.15V) and 1s (>3.75V)
+
+**Data Representation**
+- C has basic data types: float, int,  double, char
+- how data representated depends on the type (context, that's why needs to declare data type) -> the identical strings/same combination of 0s and 1s may give different meaning depending on the type
+- **Data are internally represented as sequences of bits (binary digits). A bit is either 0 or 1.**
+ - other units: byte, nibble (4 bits), word (multiple of bytes depending on the computer architecture; a single unit of transfer to the CPU)
+- N bits can represent up to 2^N values 
+- to represent M values, math.ceiling(log2M) bits required -> have to be whole number and even number (math floor will be short of one bit)
+
+**Decimal (base 10) Number System**
+- a weighted-positional number system
+- base (radix) is 10
+- symbols.digits = {0,1,2...9}
+- each position has a weight of power of 10
+- e.g. decimal is represented by negative powers of 10, thousands has a power of 10^3
+
+**other number system**
+- binary (base 2)
+  - weights in powers of 2
+  - binary digits
+- octal (base 8)
+  - weights in powers of 8
+  - octal digits: 0,1,2...,7
+- hexadecimal (base 16)
+  - weights in powers of 16
+  - hexadecimal digits: 0,1,2...,9,A,B,..,F
+- base/radix R
+  - weights in powers of R
+- **NOTE**: in some programming languages/softwares, speicial notations are used to represent numbers in certain bases
+  - C:
+    - prefix 0 for octal
+    - prefix 0x for hexadecimal
+  - QTSpim (MIPS simulator)
+    - predix 0x for hexadecimal
+  - Verilog:
+    - prefix 8"b, h"h, h"d
+    
+**Base-R to Decimal Conversion**
+- subfix is important -> indicates base -> multiple each number according to the powers of 2 -> demical number
+
+**Decimal to Binary Conversion**
+- for whole numbers: repeated division by 2 method
+  - division, divides quotient, reminded remainders
+  - the remainders forn the ans, with the first remainder as the least significant bit LSB (rightmost) and last as the most significant bit MSB (leftmost)
+- for fractions: repeated multiplication by 2 method
+  - until fractional product is 0
+  - need to substract away the carries
+  - the carried digits are the answer, the first carry is the MSB, the last as the LSB
+  - answer got to have a dot in front (fractions)
+- **note**: for decimal to base-R we use the same technique as decimal to binary except the base changes
+
+__in general, conversion between bases can be done via decimal(interconnection, bridge)__
+
+
+
+Q: how are real numbers represented in a computer system? -> finite no of bits, real no are represented in their **approximate** values.
+- remember that everything needs to be stored in a real, physical, electronics, which is finite -> finite range and accuracy (cannot be stored in arbitrary accuracy)
+
+
