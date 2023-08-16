@@ -122,7 +122,11 @@ Everthing is a number in C... But how are they representated as numbers? -> 0s (
 
 __in general, conversion between bases can be done via decimal(interconnection, bridge)__
 
-
+**Convert binary to octal/hexadecimal**
+- binary to octal: partition in groups of 3 (by binary number system)
+- octal to binary: reverse
+- binary to hexadecimal: partition in groups of 4
+- hexadecimal to binary: reverse
 
 Q: how are real numbers represented in a computer system? -> finite no of bits, real no are represented in their **approximate** values.
 - remember that everything needs to be stored in a real, physical, electronics, which is finite -> finite range and accuracy (cannot be stored in arbitrary accuracy)
