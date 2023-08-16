@@ -128,6 +128,55 @@ __in general, conversion between bases can be done via decimal(interconnection, 
 - binary to hexadecimal: partition in groups of 4
 - hexadecimal to binary: reverse
 
+**ASCII Code**
+> used to represent characters (and Unicode)
+- 7 bits plus 1 parity bit (odd or even parity)
+- character representation of numbers is different from integer reprensatation
+- if want to convert from char number to int number, subtract away 0 in character
+- [ASCII](https://www.geeksforgeeks.org/ascii-table/) Table
+- characters are represented by numbers
+
+**Negative numbers**
+- unsigned no: only non-negative values
+- signed no: include all values (positive and negative)
+- 3 common representations for signed binary numbers: sign-and-magnitude. 1s complement, 0s complement
+- Sign and maginitude
+  - the sign is represented by a sign bit -> 0 for + and 1 for -
+  - one bit sign and 7 bits magnitude
+  - largest value: +127 (10)
+  - smalled value: -127 (10)
+  - positive and negative 0s -> sign bit
+  - to negate a number -> invert the sign
+  - subscript sm
+  - **Limitations**: not good for doing arithmetic operations
+- 1s complement
+  - can do arithmetic
+  - given a number x which can be expressed as an n-bit binary number, its negated value can be obtained in 1s-complement representation using: -x = 2^n -x -1
+  - the negation of the bits (invert)
+  - largest value: +127, smallest: -127
+  - 2 zeros (all 0s or all 1s)
+  - definition of complements: the sum of the two numbers produce 0
+  - subscript: 1s
+  - the MSB still represents the sign: 0 for positive, 1 for negative
+  - **Limitation**: lost 1 value on the negative side
+  - **Advantage**: trivial to implement in the computer hardware 
+- 2s complement
+  - given a number x which can be expressed as an n-bit binary number, its negated value can be obtained in 2s-complement representation using -x= 2^n -x
+  - to negate the binary no, invert all the bits then add 1 _(done in hardware too)_ OR right to left, store first 3 numbers at it is, then invert the rest of the bits
+  - "2s complement of __"
+  - largest value: +127, smallest value = -128
+  - 1 zero only (the entire 0s)
+  - the MSB still represents the sign: 0 for positive, 1 for negative
+  - subscript: 2s
+- comparison in 4-bit system
+  - positive values remain the same for all 3 representations
+  - negative values: different
+    1. sign and magnitude: negate the sign bit at MSB 
+    2. 1s complement: invert all bits
+    3. 2s complement: 1s complement plus 1
+- note: overflow positive number becomes negative number (add the bit together and see)
+- we can extend the idea od complement on fractions
+
 Q: how are real numbers represented in a computer system? -> finite no of bits, real no are represented in their **approximate** values.
 - remember that everything needs to be stored in a real, physical, electronics, which is finite -> finite range and accuracy (cannot be stored in arbitrary accuracy)
 
