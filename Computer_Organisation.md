@@ -107,7 +107,7 @@ Everthing is a number in C... But how are they representated as numbers? -> 0s (
     - prefix 8"b, h"h, h"d
     
 **Base-R to Decimal Conversion**
-- subfix is important -> indicates base -> multiple each number according to the powers of 2 -> demical number
+- subfix is important -> indicates base -> multiple each number according to the powers of R -> demical number
 
 **Decimal to Binary Conversion**
 - for whole numbers: repeated division by 2 method
