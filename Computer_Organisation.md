@@ -208,5 +208,12 @@ _Note: the weight of sign bit in 2s complement is -2^(n-1), in 1s is -2^(n-1) -1
 
 Q: how are real numbers represented in a computer system? -> finite no of bits, real no are represented in their **approximate** values.
 - remember that everything needs to be stored in a real, physical, electronics, which is finite -> finite range and accuracy (cannot be stored in arbitrary accuracy)
+- fixed point representation
+  - no of bits allocated for the whole no part and fractional part are fixed
+  - implemented in the hardware so cannot be changed
+  - **problem**: limited range
+- floatin point representation
+  - represent very small or very large no
+  - 3 components: sign, exponent, mantissa (fraction) 
 
 
