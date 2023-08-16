@@ -177,6 +177,35 @@ __in general, conversion between bases can be done via decimal(interconnection, 
 - note: overflow positive number becomes negative number (add the bit together and see)
 - we can extend the idea od complement on fractions
 
+_Note: the weight of sign bit in 2s complement is -2^(n-1), in 1s is -2^(n-1) -1 )_
+
+**2s complement on addition/substraction**
+- Algorithm for addition of integers A + B
+   1. perform binary addition on the two numbers
+   2. ignore the carry out of the MSB
+   3. check the overflow, overflow occurs if the carry in and carry out of the MSB are different, or is result is opposite sign of A and B
+- Algo on substraction (A + (-B))
+  1. take 2s complement of B
+  2. add the 2s complement of B to A
+- overflow ❗
+  - signed no are of a fixed range
+  - if the result of addition/subtraction goes beyond the range, an overflow occurs
+  - can be detected if positive add positive becomes negative or negative add negative becomes positive
+ 
+**1s complement on addition/subtraction**
+- algo for addition
+  1. perform binary addition on the two numbers
+  2. if there is a carry out of the MSB, add 1 to the result
+  3. check for the overflow, overflow occurs if result is opposite sign of A and B
+- algo for subtraction
+  1. take 1s complement of B
+  2. add the 1s complement of B to A
+
+**excess representation**
+> another way of representing negative values
+- allows a range of values to be distributed evenly between the positive and negative values, by a simple translation (addition/substraction)
+- usually we will do excess- 2^(n-1) where n is the number of bits
+
 Q: how are real numbers represented in a computer system? -> finite no of bits, real no are represented in their **approximate** values.
 - remember that everything needs to be stored in a real, physical, electronics, which is finite -> finite range and accuracy (cannot be stored in arbitrary accuracy)
 
