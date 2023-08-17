@@ -208,12 +208,30 @@ _Note: the weight of sign bit in 2s complement is -2^(n-1), in 1s is -2^(n-1) -1
 
 Q: how are real numbers represented in a computer system? -> finite no of bits, real no are represented in their **approximate** values.
 - remember that everything needs to be stored in a real, physical, electronics, which is finite -> finite range and accuracy (cannot be stored in arbitrary accuracy)
+**representation**
 - fixed point representation
   - no of bits allocated for the whole no part and fractional part are fixed
   - implemented in the hardware so cannot be changed
   - **problem**: limited range
 - floatin point representation
   - represent very small or very large no
-  - 3 components: sign, exponent, mantissa (fraction) 
+  - 3 components: sign, exponent, mantissa (fraction)
+**IEEE 754 FLoating point rep**
+- have 3 components: sign, exponent, mantissa (fraction)
+  - sign: the positive or negative (0 for positive, 1 for negative)
+  - exponent: represented in a different sign number system.
+    - gives the power of the representation
+    - exponential power + 127 
+  - mantissa: fraction part, sign applies only to mantissa (normalised with n implicit leading bit 1)
+    - scienctific representation? 1.101 * 2^2
+    - so that there is standard format and we can save bits (we know for sure first bit is 1) -> one additional bit of accuracy, hidden bit
+- base (radix) assumed to be 2
+  - two formats
+    - single precision (32 bit): 1 bit sign, 8-bit exponent with bias 127 (excess-127), 23-bit mantissa 
+    - double precision (64 bit): 1 bit sign, 11-bit exponent with bias 1023 (excess-1023), and 52 bit mantissa
+  - we will focus on the single-precision format
+- note: need to represent the number in binary
+- hexadecimal representation -> binary number is more readable 
+
 
 
