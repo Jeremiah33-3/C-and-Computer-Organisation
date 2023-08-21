@@ -66,6 +66,40 @@ Notes on preprocessor directives:
   - #define PI 3.142 e.g.
   - C compiler will substitute every code that matches the macro defined with the value specified during compilation.
   - do not put semicolon at the end
+ 
+## Pointers and functions
+
+1. Pointer
+C is high level lang -> but the lower end of the spectrum is due to:
+- pointers which allow direct manipulation of memory contents
+- has a set of manipulation operators, allowing efficient bitwise operations
+
+**address**
+- imagine memory like pigeonholes with numbers (use to identity the slot) -> which is formally known as address
+- a variable occupies some space in the com mem, and hence it han an address
+- need not know the address of the var, refer to it by name, but the system(compiler) keeps track of the var's address
+- yet sometimes you have to get the address yourself
+  - by making use of address operator & (refer to the var's address e.g. &name)
+  - %p\n is for pointers
+  - addresses are printed out in hexadecimal (base 16) format
+  - the address of a var varies from run to run, as the system allocates any free mem to the var
+- pointer variable
+  - a var that contains the address of another var is called a pointer variable or simply pointer
+  - var a_ptr is said to be pointing to var a
+  - if the address of a is immaterial, we simply draw an arrow from the blue box to the var it points to
+  - declaration:
+    - type *pointer_name
+    - type is the data type of the bar this pointer may point to
+    - pointer_name is the name (identifier of the pointer)
+    - good practise to name pointer sthsth_ptr or _p
+  - since a pointer contains an address, only an address may be assigned to a pointer
+  - can initialise a pointer during initialisation, alternatively, you can declare the pointer first, then assign the value to the pointer
+  - we can access a var directly or indirectly thru pointers by using the indirection operator (or dereferencing operator)*
+    - e.g. printf("a= %d\n", *a_ptr); equivalent to printf("a = %d\n", a)
+    - *a_ptr is synoynmous with a
+  - when we store address of var to a pointer, pointer points to the var, assigning value to the pointer *p will change the value of that var too
+  - when pointing the pointing to var, no need star (e.g. b = &a)
+  - can decalre double a, b*;
 
 ## Control structures in C
 
