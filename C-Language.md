@@ -100,6 +100,7 @@ C is high level lang -> but the lower end of the spectrum is due to:
   - when we store address of var to a pointer, pointer points to the var, assigning value to the pointer *p will change the value of that var too
   - when pointing the pointing to var, no need star (e.g. b = &a)
   - can decalre double a, b*;
+  - if you want to print out the value of a pointer, just printf("%d.., *p1)
 
 ## Control structures in C
 
