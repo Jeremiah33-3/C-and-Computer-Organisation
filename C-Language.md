@@ -163,6 +163,75 @@ C is high level lang -> but the lower end of the spectrum is due to:
 **common mistake**
 - accessing var in main() func in a user-defined func
 
+## arrays, strings, and structures
+
+> data collection and organisaition (for the purpose of more logical representation and ease of manipulation)
+
+1. Arrays
+> homogeneous collection of data (of the same data type)
+- includes the element type, array name, and size (max no of elements)
+- array elements occupy contiguous mem locations and are accessed through indexing (from index 0 onwards) (next to each other)
+- decalration:
+  - int c[30] -> elem type, array name, and size
+  - to initialise it, delcare and assign to {e1, e2, ..., en} (can be initialised at the time of declaration)
+  - initialisation at declaration can omit the size of the array
+  - initialisation can also: declare less elem than max -> the rest will be 0;
+  - int d[5] (null) vs int d[5] = {0} (set to 0 for all)
+  - cannot declare then assign (e.g. int f[5]; f[5] = {1...})
+- note:
+  - to access the individual array elem from within a func -> have to pass in the address of the elem (e.g. &c[i])
+  - cannot simply set an array to another:
+    - an aray name is fixed (constant) pointer; it points to the first elem of the array and this cannot be altered
+    - the code will attempt to alter an arrpointer to make it point elsewhere (illegal)
+- array and pointers
+  - when the arr name a appears in an expr, it refers to the address of the first element (ie &a[0]) of that array; printf("%p\n", a);)
+  -  using memcpy() in <string.h> library function to copy one arr to another (out of syllabus)
+- array params in functions
+  - returntype func_name(type [] ...)
+  - note the arr name is a pointer to the arr -> passing it into param copies the content of the arr over to a new arr (local function)
+  - function prototype
+    - name of params optional in prototype
+  - function header in the function definition
+    - no need to put array size [] insdie, even if array size is present, compiler just ignores it
+    - instead, provide the array size through another parameter
+    - this is true for prototype too
+  - since an arr name is a pointer, using int * vs int [] in prototype is allowed (another alternative syntax, syntatic sugar for array param in function prototype and function header in the function definition)
+  - modifying array in a func
+    - no need to use address operator since the arr itself is a pointer
+    - but func can modify the content of the arr it received whether you intend or not (implication)
+
+2. strings
+> an array of chars with a null character "\0" at the end of the array (terminated by)
+- we can use string functions (include <string.h>) to manipulate strings
+- declare a string as an arr of chas then assign char to an elem of an arr of chars
+- or initialiser for string
+  - char fruit_name[] = "apple" (double quote! automatically null at the end)
+  - char fruit_name[] = {'a', 'p',...,'\0'}
+- so always one more size for the last null terminator
+- functions read string from stdin (keyboard)
+  - fgets(str, size, stdin); (standard in; file reader)
+  - scanf("%s", str); (read until first white space)
+- print string to stout (monitor)
+  - puts(str); // terminates with newline
+  - printf("%s\n", str)
+  - gets(str) read a string interactively, however, due to security reason, we avoid it and use fgets() function instead (stackoverflow attack)
+- fgets() also reads in newline character eat\n\0 (reads all the way to the newline character)
+- string functions <string.h>
+  - strlen(s) : return the number of char in s
+  - strcmp(s1, s2) : compare the ascii values of the corresponding chars in string s1 and s2
+    - return a negative int if s1 is lexicographically less than s2
+    - positive if s1 is greater or
+    - 0 is s1 and s2 are equal
+  - strncmp(s1, s2, n): compare first n char of s1 and s2
+  - strcpy(s1, s2): copy the string pointed to by s2 into arr pointed to by s1.
+    - func returns s1
+    - but be careful of stackoverflow attack
+  - strncpy(s1, s2, n) copy first n char od string pointed to s2 into s1 (recommended)
+  - importance of '\0' in a string
+    - to be treated as a string, arr of char must be terminated with null char
+    - string functions cannot work properly on arr of char
+    - may result in illegal access of memory if not properly handled by '\0'
+
 ## Control structures in C
 
 **Selection structures**
