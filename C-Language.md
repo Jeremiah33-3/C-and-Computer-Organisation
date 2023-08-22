@@ -115,6 +115,54 @@ C is high level lang -> but the lower end of the spectrum is due to:
   1. to pass the addresses of two or more var to a function so that the function can pass back to its caller new values of the var
   2. to pass the address of the first element of an array to a function so that the function can access all elements in the array (then use pointer arithmetic to access the rest; useful when array is very large)
 
+2. Functions
+- libraries offering functions for you to use
+- function prototype -> what type the func returns, and what arguments it expect (e.g. <stdio.h> has func prototypes)
+- calling function
+  - note: when using scanf(), must refer &x and &y -> adresses, scanf needs to modify x and f and the only way a function can modify var is through its address
+  - need to -lm during compilation (tell c to take the code from math library and compile it with our program)
+
+**User-defined functions**
+- we can define and use our own functions
+- for a set of operations that are used more than once (computation), good to encapsulate it in a function (code resuability)
+- we declare a function prototpye by declaring the type the function is returning and the arg(s) it takes (e.g. double circle_area(double);)
+- then we define the function outside of the main() function (e.g. double circle_area(double diameter) {...})
+- Note
+  - good practise to put func protypes at the top of the program, before the main() function, to inform the compiler of the functions that your program may use and their return types and param types. (like include <studio.h> is putting all of the prototypes at the top of the program)
+  - a func prototype includes only the functions's return type, func name, and the data types of the params but names of params no need
+  - func definition follow after the main() function (easier to analyse)
+  - without func prototypes -> get warning or errors (c assumes the default return type is int)
+
+**pass-by-value and scope rule**
+- actual params (actual args) are passed to the formal params by a amechanism known as pass-by-value; scoping (global, local var)
+- we pass in the values of the var into the args
+- formal params are local to the function they are declared in
+- var declared within the func are also local to the func
+- local params are var are only accessible in the fun they are declared (**scope rule**)
+- when a func is called
+  1. activation record created in call stack
+  2. mem allocated for the local params and var of the func
+  3. once the function is done, activation record is removed and mem allocated for the local params and var is released
+- hence local params and var of a function exist in mem only during the execution of the function. they are called automatic var (automatically created and automatically removed)
+- in contrast, static var exist in the mem even after the function is executed
+- therefore, var in the main function and var in the local scope of the function are different even if a in passed into the function -> different activation records (two different var) -> only the value is passed into the function thru the params
+
+**consequence of pass-by-value**
+- func cannot change any var declared outside of its scope
+
+**func with pointer params**
+- func may or may not return a value (void or data type)
+- all params and vars in the function are local to the function
+- args from a caller are passed by value to a func's params
+- to allow a func to return more than one value or to modifu values of var defined outside of it -> pointers (access var using its address)
+- pointers and functions
+  - func prototype: params still have decalre type, but with * to represent pointers
+  - in definition, we pass in the pointers to the vars
+  - dereference the pointer (go to the var the pointer is pointing to directly)
+
+**common mistake**
+- accessing var in main() func in a user-defined func
+
 ## Control structures in C
 
 **Selection structures**
