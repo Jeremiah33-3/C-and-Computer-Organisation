@@ -101,6 +101,19 @@ C is high level lang -> but the lower end of the spectrum is due to:
   - when pointing the pointing to var, no need star (e.g. b = &a)
   - can decalre double a, b*;
   - if you want to print out the value of a pointer, just printf("%d.., *p1)
+  - *p1 refers to the address of the var the pointer is pointing to, hence the value; (*p1)++: bracket needed as dereferencing operator has a lower precedence than the increment operator -> no bracket, pointer will be increment first then do a dereference (increment var vs increment pointer)
+
+**incrementing pointer**
+- recall data types take up a fixed bytes always (e.g. int is ususally 4 bytes)
+- increment the address by the size of data type it is pointing to (increment by 1 int, 4 bytes...)
+
+**common mistake with pointers**
+- int *n; *n = 123; printf("%d\n", *n); ➡️ segmentation fault (core dumped) -> must remove the file "core" from your directory, takes up a lot of space
+
+**why use pointer**
+- when we pass the address of a var into a function:
+  1. to pass the addresses of two or more var to a function so that the function can pass back to its caller new values of the var
+  2. to pass the address of the first element of an array to a function so that the function can access all elements in the array (then use pointer arithmetic to access the rest; useful when array is very large)
 
 ## Control structures in C
 
