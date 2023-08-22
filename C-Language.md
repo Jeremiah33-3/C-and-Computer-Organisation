@@ -231,6 +231,49 @@ C is high level lang -> but the lower end of the spectrum is due to:
     - to be treated as a string, arr of char must be terminated with null char
     - string functions cannot work properly on arr of char
     - may result in illegal access of memory if not properly handled by '\0'
+  - cannot assign string value directly -> strcpy
+
+3. structure
+> structure allow grouping of heterogeneous members of different types, a group canbe a member of another group  (structure type, a new data type)
+- typedef struct { data..} struct_name
+- note: a type is NOT a variable (data type vs var)
+- the following is a definition of a type, not a declaration of a var
+`typedef struct {`
+    `int name;`
+    `float name;`
+`} struct_name;`
+  - a type needs to be defined before we can declare var of that type
+  - no memory is allocated to a type
+- declaration syntax is similar to declaring ordinary var
+  - before function prototypes but after preprocessor directives
+  - data_type data_name (e.g. result_t result_1)
+- initialisation
+  - syntax is like array initialisation: e.g. result_t result1 = { 123321, 93.5, 'A' } ;
+  - or { {...} } if there is another struct within the struct
+- accessing members of a structure var by using the dot (.) operator
+- a bit like object in OOP languages
+- the structure members are read in individually the same way as do for ordinary variables
+- assigning structures
+  - we use the dot operator to access individual member of a structure var
+  - if we use the structure var's name, we are referring to the entire structure
+  - we may do assignments with structures e.g. result2 = result1 (unlike arrays)
+- return structure from function
+  - given a data type struct_type, define a func func() that returns a structure of this type -> struct_name func(...)
+  - to call this function: just call and assign the returned value to a struct of that type
+- pass structure to function
+  - as a parameter in a function is akin to assigning the structure to the parameter
+  - the entire structure is copied (i.e. members of the actual param are copied into the corresponding members of the formal parameter)
+  - pass-by-value
+- combine structure and array: give lot of flexibility in organising data
+- pass address of structure to function
+  - pass structure to function is just copying the value over (pass by value) -> a separate copy of it is made in the called function
+  - original structure var will not be modified by the function
+  - to allow modification -> pass in adrress (pointer) of the structure var to the function
+  - note that passing an arr of structures to a function is a different matter. as the arr name is a pointer, the function is able to modify the array elements
+  - but note *struct_pointer.mem -> dereferncing the member, dot operator has higher precedence, so must put (*struct_pointer).mem
+- arrow operator ->
+  - synatatic sugar 
+  - (*struct).mem is equivalent to struct->mem
 
 ## Control structures in C
 
