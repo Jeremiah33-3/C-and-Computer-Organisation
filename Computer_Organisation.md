@@ -233,5 +233,68 @@ Q: how are real numbers represented in a computer system? -> finite no of bits, 
 - note: need to represent the number in binary
 - hexadecimal representation -> binary number is more readable 
 
+## MIPS (Microprocessor without Interlocked Pipelined Stages)
 
+How a processor works? (particularly MIPS)
+
+1. Instruction set architecture
+
+High-level -> compiler -> assembler 
+> ISA: an abstraction on the interface between the hardware and the low-level interface
+- software (translated to the instruction set) and hardware (implementing the instruction set)
+- includes everything programmers need to know to make the machine code work correctly
+- allows computer designers to talk about functions independently from the hardware that performs them
+- this abstraction allows many implementations of varying cost and performance to run identical software
+
+2. Loading large constant (32-bit constant into a register)
+
+First, use "load upper immediate" (lui) to set the upper 16-bit 
+  - lui $t0, 0xAAAA
+  - t0 register ^
+  - lower-order bits filled with zeros
+Second, use "or immediate" (ori) to set the lower order bits
+  - ori $t0, $t0, 0xF0F0
+  - higher-order bits filled with zeros
+
+3. Machine code vs assembly language
+- instructions in binary vs human readable
+- hard and tedious to code vs easier to write than machine code, symbolic version of machine code
+- may also be written in hexadecimal for a more human-readable format vs may provide "pseudo-instructions" as syntatix sugar -> when considering performance only real instructions are counted
+
+4.Components 
+
+Two major components in a computer: processor and memory
+processor: perform computations -> bus: bridge between the two components -> memory: storage of code and data 
+- code and data reside in memory -> transferred into the processor during execution
+- processor is faster than slower (working)
+- since memory access is slow, we avoid frequent access of memory by providing temporary storage for values in the processor (known as registers)
+  - moving data from memory into a register -- load
+  - moving data from a register into memory -- store
+  - variable mapping: loading a variable into another var (register), in assembly code when converting from c to assembly code
+- reg-to-teg arithmetic
+  - arithmetic operations can now work directly on registers only
+  - arithmetic operation uses a constant value instead of register value
+- to repeat a set of instructions/ make a chice (loop and switch, if-else)
+  - control flow instruction: change the control flow based on condition
+    - repetition and selection can both be supported
+    - execution will repeat from the indicated position is condition succeeded
+    - once condition is false, execution will continue sequentially (until we see another control flow instruction)
+
+Summary:
+- the stored memory concept: both instructions and data are stored in memory
+- the load-store model: limit memory operations and relies on registers for storage during execution
+- major type of assembly instructions
+  - mem: move values between memory and registers
+  - calculation: arithmetic and other operations
+  - control flow: change the sequential execution
+
+General purpose registers:
+- fast memories in the processor
+  - data are transferred from memory to registers for faster processing
+- limited in number
+  - a typical architecture has 16 to 32 registers
+  - compiler associates variables in program with registers
+- registers have no data type
+  - unlike progam variables
+  - machine/assembly instruction assumes the data stored in the register is of the correct type 
 
