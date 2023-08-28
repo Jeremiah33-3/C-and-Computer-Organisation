@@ -293,8 +293,53 @@ General purpose registers:
   - data are transferred from memory to registers for faster processing
 - limited in number
   - a typical architecture has 16 to 32 registers
-  - compiler associates variables in program with registers
+  - compiler associates variables in program with registers [done by compiler !]
 - registers have no data type
   - unlike progam variables
-  - machine/assembly instruction assumes the data stored in the register is of the correct type 
+  - machine/assembly instruction assumes the data stored in the register is of the correct type
+    - instruction: add -> store as 32 bit 2s complement; addu -> unsigned binary no.; fadd -> IEEE 754 repre (what registers store as instructed by the instruction
+- 32 registers in MIPS assembly language
+  - can be referred by a number ($0, $1,..., $31)
+  - can be referred by a name (e.g. $a0, $t1)
 
+MIPS Assembly Language
+- each instruction executes a simple command
+  - usually has a counterpart in high-level programming lang like C/C++, Java
+- each line of assembly code contains at most 1 instruction
+- \# (hex-sign) is used for comments (ignored by assembler)
+- most of the MIPS arithmetic/logic operations have three operands: 2 sources and 1 destination + operation (op)
+- arithmetic operation
+  - addition
+    - assume values of sources and dest are loaded into registers
+    - known as variable mapping (done by compiler)
+      - var-to-register mapping deals with step (1) (i.e. load) and step (3) (i.e. store). All computations are assumed to be in register for this set of instructions. 
+    - actual code to perform the loading will be shown later in mem instruction
+    - important: MIPS arithmetic op are mainly register-to-register (operations are register, destination also in register)
+  - substraction
+    - positions of sources are important for substraction (fixed)
+  - complex expression
+    - a single MIPS instruction can handle at most two source operands
+    - so need to break a complex statement into multiple MIPS instructions (store in temp register $t0 - $t7)
+    - can keep a register as dest and just add new values to it (e.g. $s4, $s0, $s1; $s4, $s4, $s2)
+  - constant/immediate operands
+    - immediate values are numerical constants that is frequently used in operations and MIPS supplies a set of operations specially for them
+    - add immediate (addi)
+      - syntax is similar to add instruction, but source2 is a constant instead of register
+      - constant ranges from [-2^15 to 2^(15-1)] (16 bit 2s complement)
+      - note: 1s -> [-(2^n-1 - 1) to (2^n-1 - 1)]; 2s -> [-2^n-1 to (2^n-1 - 11)]
+    - no subi because can use addi with negative constant (want to have minimal number of instructions)
+
+Register zero ($0 or $zero) 
+- number zero (0), appears very often in code -> provide register zero ($0 or $zero) which always have the value 0
+- for assignment (e.g. f = g)
+- MIPS has an equivalent pseudo-instruction (move): move $s0, $s1 (MIPS Assembly code)
+- peudo-ins are fake instructions that gets translated to corresponding MIPS instruction(s). Provided for convenience in coding only
+
+Logical Operations 
+- arithmetic instructions view the content of a register as a single quantity (signed or unsigned integer)
+- new perspective
+  - view register as 32 raw bits rather than as a single 32-bit number
+  - possible to operate on individual bits or btyes within a word
+  - shift left, shift right, bitwise AND, bitwise OR, bitwise NOR/NOT(OR), bitwise XOR
+  - truth tables of logicaloperations (0 is false, 1 is true)
+  - bitwise operation 
