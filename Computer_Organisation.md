@@ -266,7 +266,9 @@ Second, use "or immediate" (ori) to set the lower order bits
 Two major components in a computer: processor and memory
 processor: perform computations -> bus: bridge between the two components -> memory: storage of code and data 
 - code and data reside in memory -> transferred into the processor during execution
-- processor is faster than slower (working)
+- processor is faster than RAM (working) ->To avoid frequent access of memory
+- Need instruction to move data into registers
+  - Also to move data from registers to memory later
 - since memory access is slow, we avoid frequent access of memory by providing temporary storage for values in the processor (known as registers)
   - moving data from memory into a register -- load
   - moving data from a register into memory -- store
@@ -279,6 +281,8 @@ processor: perform computations -> bus: bridge between the two components -> mem
     - repetition and selection can both be supported
     - execution will repeat from the indicated position is condition succeeded
     - once condition is false, execution will continue sequentially (until we see another control flow instruction)
+- Bus: data connector between mem and processor
+- mem is typically simply a RAM 
 
 Summary:
 - the stored memory concept: both instructions and data are stored in memory
