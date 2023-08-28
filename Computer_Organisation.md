@@ -347,3 +347,37 @@ Logical Operations
   - shift left, shift right, bitwise AND, bitwise OR, bitwise NOR/NOT(OR), bitwise XOR
   - truth tables of logicaloperations (0 is false, 1 is true)
   - bitwise operation 
+- list
+  - sl (shift left logical): move all the bits ina word to the left by a number of positions; filled empited positions with zeros (sll $t2, $s0, 4)
+  - srl 9shift right logical): shifts right and fills emptied positions with zeros
+    - equivalent math op for shifting left/right n bits: multiplication by 2^n for left; division by 2^n for right shift
+    - shifting is faster than mult/division -> good compiler translates such mult/division into shift instructions
+  - and (bitwise AND): bitwise op that leaves a 1 only if both the bits of the op are 1 (and $t0, $t1, $t2)
+    - also masking op (bit-mask is setting the irrelevant part to 0 i.e. masked)
+    - place 0s into the positions to be ignored
+    - place 1s for interested positions -> remain the same as original
+    - $t2 is the mask
+    - immediate version: andi
+  - or (bitwise OR): bitwise op that places a 1 in the result if either op bit is 1 (or $t0, $t1, $t2)
+    - immediate version: ori -> become 32-bit number
+  - NOR (bitwise nor)
+    - strange fact: no NOT instruction in MIPS to toggle the bits from 1 to 0 and 0 to 1
+    - NOR instruction is provided: nor $t0, $t1, $t2
+    - NOT op: nor $t0, $t0, $zero
+    - nor instruction can help perform not op, os keep the instruction set small (one of the design principles)
+  - xor (bitwise XOR): xor $t0, $t1, $t2
+    - get NOT op from XOR: xor $t0, $t0, $t2(all 1s)
+    - fact: there is no NORI but XORI because there is not much need for NORI (keep processor design simple)
+   
+  **more instructions**
+
+  Mem organisation (general) RAM:
+  - main mem can be viewed as a large, single dimension array of mem locations
+  - each location of the mem has an address, which is an index into the arr (given a k-bit address, the address space is of size 2^k)
+  - mem map on the right contains one byte in every location/add (byte addressing)
+ 
+  Mem: transfer unit:
+  - using distinct mem address, we can access a single byte (byte addressable) or a single word (word addressable)
+    - word is usually 2^n bytes
+    - the common unit of transfer between processor and mem
+    - also commonly coincide with the register size, the int size and instruction size in most architectures 
