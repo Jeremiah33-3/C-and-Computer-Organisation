@@ -478,3 +478,37 @@ Common question:
   - jump to label L1 unconditionally
   - C code: goto L1
 - technically equivalene to such statement: beq $s0, $s0, L1
+
+**IF statements**
+- condition instructions -> can use bne/beq
+  - common technique is to invert the condition for shorter code (the lesser the instructions, the more efficient the code
+- decompilation "reverse" process, invert -> beq becomes if (i != j)
+
+**loop**
+- any form of loop can be written in assebly with the help of conditional branched and jumps (use goto statements too)
+- note: labels don't occupy memory, it is represented as address
+- addi can be useful in for loop to check the "constant" value that results in termination (e.g. i < 10)
+- can translate for loop to while loop it that's easier
+
+**inequalities**
+- no blt/bgt instruction in MIPS (for </>)
+- use slt (set on less than) or slti
+  - slt $t0, $s1, $s2 => $t0 set to 1 if less than, 0 is not
+  - slti $t0, $s1, C
+- to build a blt instruction
+  1. slt $t0, $s1, $s2
+  2. bne $t0, $zero, L
+- blt is another eg of pseudo-instruction; aseembler translates (blt) instruction in an assemble program into the equivalent MIPS (two) instructions
+
+**array and loop**
+- use an index i/address to loop through the array
+- use of "pointers" can produce more efficient code
+- steps (algorithm)
+  1. initialisation for result var, loop counter, and array pointers
+  2. label
+    1. calculate address
+    2. load data
+    3. perform task
+  3. update loop counter and array pointers
+  4. compare and branch
+- to understand how many instructions are being executed, can try converting the code into C code
