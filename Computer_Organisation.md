@@ -433,3 +433,48 @@ Common question:
 - consecutive word addresses in machines with byte-addressing do not differ by 1
 - common error: assume that the address of the next word can be found by incrementing the address in a register by 1 instead of the word size in bytes
 - for both lw and sw: the sum of base address and offset must be a multiple of 4 (i.e. adhere to word boundary)
+
+**Making decision**
+- to perform general computing tasks, we need to make decisions (if-else) and perform iterations (loop)
+- DM in high level lang:
+  - if anf goto statements
+  - MIPS decision making instructions are similar to if statement with goto
+    - goto is discouraged in high level lang but necessary in assembly
+- DM instructions
+  - alter the control flow of the program
+  - change the next instruction to be executed (if-else for e.g.)
+  - two types of DM statemetns in MIPS
+    - conditional (branch)
+      - bne $t0, $t1, label
+        - to next instruction if $t0 and $t1 are equal, else branch to label
+      - beq $t0, $t1, label
+        - branch if $t0 === $t1 (opposite to bne)
+    - unconditional (jump)
+      - j label
+        - jump to the instruction pointed to the label, no question/condition asked
+    - NOTE:
+      - selection: branch/jump down
+      - repetition: branch/jump up
+      - both cases, it's a goto operation 
+  - a label is an "anchor" in the assembly code to indicate point of interest, usually as branch target (a pointer to the instruction)
+    - NOT instructions NOR var (no mem) ❗
+
+**Conditional branch: beq and bne**
+- processor follows the branch only when the condition is satisfied (true)
+- beq
+  - go to statement label if value in registers are equal ($r1 === $r2, then to L1)
+  - beq: branch if equal
+  - C code: if (a == b) goto L1
+- bne
+  - go to statement labelled L1 if values in the two registers differ
+  - bne: branch if not equal
+  - C code: if (a!=b) goto L1
+- e.g. L1: add $s0, $s1, $s2 (pointing to an instruction)
+- Exit (label)
+
+**Unconditional jump j**
+- processor alwyas follow the branch
+- j L1
+  - jump to label L1 unconditionally
+  - C code: goto L1
+- technically equivalene to such statement: beq $s0, $s0, L1
