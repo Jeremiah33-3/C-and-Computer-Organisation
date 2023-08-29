@@ -379,5 +379,57 @@ Logical Operations
   Mem: transfer unit:
   - using distinct mem address, we can access a single byte (byte addressable) or a single word (word addressable)
     - word is usually 2^n bytes
-    - the common unit of transfer between processor and mem
-    - also commonly coincide with the register size, the int size and instruction size in most architectures 
+    - word is the common unit of transfer between processor and mem
+    - word is also commonly coincide with the register size, the int size and instruction size in most architectures -> design simplicity
+  - word alignment
+    - words are aligned in mem if they begin at a byte address that is a mulyiple of the number of bytes in a word
+   
+MIPS Mem instruction
+- MIPS is a load-store register architecture
+  - 32 registers, each 32-bit (4 byte) long
+    - fast processor storage for data
+    - in MIPS, data must be in registers to perform arithmetic
+  - each word contains 32 bit
+    - 2^30 mem words ( / 2^2 since each word is 2^2 byte long)
+    - accessed only by data transfer instructions
+    - MIPS uses byte addresses, so consecutive words differ by 4
+    - mem holds data structures, such as arrays, and spilled registers, such as those saved on procedure calls
+  - memory addresses are 32-bit long
+    - word address should be divided by 4 (byte address)
+- Load Word
+  - lw $t0, 4($s0)
+  - displacement, offset = + 4
+  - steps
+    1. mem address = $s0 + 4 = 8000 + 4 = 8004
+    2. **mem word at Mem[8004] is loaded into $t0**
+- Store Word
+  - sw $t0, 13($s0)
+  - 8000: base addresses
+  - store the word into (content copied over to the new address)
+  - steps:
+    1. mem address: $s0 + 12 = 8000 + 12 = 8012
+    2. content of $t0 is stored into word at Mem[8012]
+- only load and store instructions can access data in mem
+- arithemetic op (for add) are registers, not memory
+- Others
+  - load bytw (lb) and store byte (sb)
+  - lb $t1, 12($s3)
+  - sb $t2, 13($s3)
+  - similar in working except that one byte instead of one word is loaded or stored
+    - offset no longer needs to be a multiple of 4
+  - MIPS disallows loading.storing unaligned word using lw/sw (throw exception)
+    - psedo-instructions unalighed load word(ulw) and unaligned store word (usw) are provided for this purpose
+    - ulw/usw can be translated to sequene of lb/sb + other operations
+  - other mem instructions
+    - lh and sh (load halfword and store half)
+    - lwl, lwr, swl, swr
+   
+Common question: 
+1. address vs value
+- registers do not have types ❗
+- a register can hold any 32-bit number
+  - the no has no implicit data type and is interpreted according to the instruction that uses it (weakly-typed)
+2. byte vs word
+- consecutive word addresses in machines with byte-addressing do not differ by 1
+- common error: assume that the address of the next word can be found by incrementing the address in a register by 1 instead of the word size in bytes
+- for both lw and sw: the sum of base address and offset must be a multiple of 4 (i.e. adhere to word boundary)
