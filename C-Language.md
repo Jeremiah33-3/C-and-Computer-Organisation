@@ -108,7 +108,7 @@ C is high level lang -> but the lower end of the spectrum is due to:
 - increment the address by the size of data type it is pointing to (increment by 1 int, 4 bytes...)
 
 **common mistake with pointers**
-- int *n; *n = 123; printf("%d\n", *n); ➡️ segmentation fault (core dumped) -> must remove the file "core" from your directory, takes up a lot of space
+- int *n; *n = 123; printf("%d\n", *n); ➡️ [segmentation fault](https://stackoverflow.com/questions/2346806/what-is-a-segmentation-fault) (core dumped) -> must remove the file "core" from your directory, takes up a lot of space
 
 **why use pointer**
 - when we pass the address of a var into a function:
