@@ -209,7 +209,7 @@ C is high level lang -> but the lower end of the spectrum is due to:
   - char fruit_name[] = {'a', 'p',...,'\0'}
 - so always one more size for the last null terminator
 - functions read string from stdin (keyboard)
-  - fgets(str, size, stdin); (standard in; file reader)
+  - [fgets](https://www.geeksforgeeks.org/fgets-gets-c-language/)(str, size, stdin); ([standard input](https://stackoverflow.com/questions/44423865/what-exactly-is-stdin); file reader)
   - scanf("%s", str); (read until first white space)
 - print string to stout (monitor)
   - puts(str); // terminates with newline
