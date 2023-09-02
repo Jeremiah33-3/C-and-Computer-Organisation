@@ -512,3 +512,67 @@ Common question:
   3. update loop counter and array pointers
   4. compare and branch
 - to understand how many instructions are being executed, can try converting the code into C code
+
+
+## MIPS Instruction Formats & Encoding
+
+**Overview and motivation**
+- assembly instructions transte to machine code for actual execution
+- this section shows how to translate MIPS assembly code into binary patterns
+- explains strange facts
+  - why is immediate limited to 16 bits
+  - whi is shift amount only 5 bits
+- buiild a MIPS processor later
+
+**MIPS Encoding**
+- each MIPS instruction has a fixed length of 32 bits ❗
+  - al relevant info for an operation must be encoded with these bits
+  - fun fact: [encoding vs encrypting](https://www.geeksforgeeks.org/encryption-encoding-hashing/)
+  - MIPS format
+- consideration, additional challenge
+  - to reduce the complexity of processor deisgn --> instruction encodings should be as regular as posisble
+    - small number of formas (few variations as possible)
+   
+**Instruction classifications**
+- instructions are classified according to their operands.
+- instructions with same operand types have same encoding
+  - R-format
+    - register format: op $r1, $r2, $r3
+    - instruction which use 2 source registers and 1 destination register
+    - e.g. add, sub, and, or, nor, alt
+    - special cases: srl, sll
+    - details (page 8)
+    - note: only 32 registers, so 5 bits for each registers is enough. It is enough for shamt field since shifting 32 bits clears the entire register (to 0)
+    - 6, 5, 5, 5, 5, 6: opcode, rs, rt, rd, shamt, funct
+    - log2 32 = 5
+    - each field has a name: opcode...
+    - each field is an independent 5 or 6-bit unsigned integer
+      - 5 bit: represent any number from 0 - 31
+      - 6 bit: represents any number from 0 - 63
+    - fields:
+      - opcode: partially specifies the instruction, equal to 0 for all R-Format instructions
+      - funct: combined with opcode exactly specifies the instruction
+      - rs (source reg): specify register containing first operand
+      - rt (target reg): specify register containing second operand
+      - rd (dest reg): specifiy reg which will receive result of computation
+      - shamt: amount a shift instruction will shift by
+        - 5 bits (0 - 31)
+        - set to 0 in all non-shift instruction
+  - I-format
+    - immediate format: op $r1, $r2, Immd
+    - instructions which use 1 source register, 1 immediate value and 1 destination register
+    - e.g. addi, andi, ori, slti, lw, sw, beq, bne
+    - (page 15)
+    - problem with shamt: 5-bit, can only represent 0 -31 but immediates may be much larger than this (e.g. lw, sw instructions require bigger offset)
+    - compromise: define a new instruction format partially consistent with R-format
+      - if instruction has immediate, then uses at most 2 registers
+    - note: keep some fields in the same position so that looking at the binary, we can quickly identify the instruction format. + ensure that retrieving rs and rt will be consistent across R and I-format
+    - we merge rd, shamt, and funct to form a 16-bit field used for a constant value (immediate)
+    - opcode (no funct field, opcode uniquely specifies an instruction), rs (specifies the source reg oprend if any), rt (speicifes reg to receive result -> difference with R-format)
+    - immediate: treated as signed integer (2s complements) except for bitwise operations
+      - 16-bits -> used to represent a constant up to 2^16 different values
+      - large enough to handle offset in a typical lw and sw + most of the values in the addi, slti instructions
+      - ❗therefore, cant store 32-bit constants in the instruction because the instruction itself is only 32-bit wide -> can only use parts of it + still need to encode opcode, rs, and rt
+  - J-format
+    - Jump formath: op Immd
+    - j instruction uses only one immediate value
