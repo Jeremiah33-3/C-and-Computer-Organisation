@@ -579,3 +579,43 @@ Common question:
 
 MIPS ref sheet:
 ![MIPS reference sheet](https://d20ohkaloyme4g.cloudfront.net/img/document_thumbnails/309c0dbde82179fa7e2ba89bff63e5da/thumb_1200_1480.png)
+
+**Instruction Address**
+- instructions store in mem -> they too have addresses
+  - control flow instructions uses these addresses -> beq, bne, j
+- instructions are 32-bit long -> so instruction addresses are word-aligned as well
+- program counter ❗
+  - > a special counter register that keeps address of next instruction being executed in the processor
+
+**BRANCH: PC-relative addressing**
+- uses I-Format
+- opcode: specifies beq/bne
+  - change value of the PC -> in other words, change address of next instruction 
+- rs and rt specify registers to compare (source reg) 
+- immediate
+  - 16 bits, and mem address if 32 bits --> immediate not enough to specify the entire target address
+  - question is how to store the address of the next instrucion then
+- how to use branches (usual)
+  - if-else, while, for
+  - loops are generally small -> up to 50 instructions (means within the loop block, not too many instructions?) 
+  - unconditional jumps are done using jump instructions (j), not the branches
+  - conclusion: a branch often changes PC by a small amount
+- therefore, solution: specify target address relative to the PC
+  - target address is generated as : PC + 16-bit immediate field
+  - the immediate field is a signed 2s complement int
+  - can branch up to +-2^15 bytes from the PC --> should be enough to cover most loops
+- can branch target range be enlarges ( > +- 2^15)
+  - firstly, instructions are word-aligned
+    - no of bytes to add to the PC will always be a multiple of 4
+    - interpret the immediate as number of words (automatically multiplied by 4 (100 in base 2)
+  - so we can extend range from +-2^15 _bytes_ to +-2^15 _words_ from the PC -> +-2^17 bytes from the PC --> can branch 4 times faster
+
+**Branch calculation**
+1. if branch is not taken
+   - PC = PC + 4 (address of the next instruction)
+2. branch is taken
+   - PC = (PC + 4) + (immediate * 4)
+- Observation:
+  - immediate field specifies the number of words to jump, which is the same as the number of instructions to "skip over"
+  - immediate field can be positive or negative
+  - due to hardware design, add immediate to (PC + 4), not to PC (kiv)
