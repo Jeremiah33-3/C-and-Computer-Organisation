@@ -576,3 +576,6 @@ Common question:
   - J-format
     - Jump formath: op Immd
     - j instruction uses only one immediate value
+
+MIPS ref sheet:
+![MIPS reference sheet](https://d20ohkaloyme4g.cloudfront.net/img/document_thumbnails/309c0dbde82179fa7e2ba89bff63e5da/thumb_1200_1480.png)
