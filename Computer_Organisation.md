@@ -617,5 +617,26 @@ MIPS ref sheet:
    - PC = (PC + 4) + (immediate * 4)
 - Observation:
   - immediate field specifies the number of words to jump, which is the same as the number of instructions to "skip over"
+    - \+ / - depending on whether you are moving forward or backwards (offset)
+    - count starting from the next instruction (PC is pointing to the next instruction PC + 4)
   - immediate field can be positive or negative
-  - due to hardware design, add immediate to (PC + 4), not to PC (kiv)
+  - due to hardware design, add immediate to (PC + 4), not to PC (kiv) -> PC is always pointing to the next instruction to be executed
+- L9P7
+- pg 32-33 for summary
+
+**encoding instructions in J format**
+- for branches, PC-relative addressing was used (cuz we do not need to branch too bar)
+- for general jumps -> may jump anywhere in the memory
+- can't specify a 32-bit memory address to jump up --> need to represent opcode (6 bit)
+- J format:
+  - opcode 6 bits, target address 26 bits (label)
+  - keep opcode field identical to R-format and I-format for consistency (6 bits)
+  - combine all other fields to make room larger for target address
+  - we can only specify 26 bits of 32-bit address
+    - optimisation, like branches, jumps will only jump to word-aligned addresses (multiples of 4) --> last 2 bits always 0 0
+    - we can leave then out and specify instructions instead 
+    - we can specify 28 bits of 32-bit address
+    - to get other 4 bits:
+      - MIPS choose to take the 4 most sig bits from PC + 4 (next instruction after jump instruction) --> means that we cannot jump to anywhere in mem, but it should be sufficient most of the time
+      - max jump range: 256 MB -> 2^28 bits
+      - to jump to further range: special instruction _jr_ (target address is specified through a reg)
