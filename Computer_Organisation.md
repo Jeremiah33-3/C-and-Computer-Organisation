@@ -640,3 +640,92 @@ MIPS ref sheet:
       - MIPS choose to take the 4 most sig bits from PC + 4 (next instruction after jump instruction) --> means that we cannot jump to anywhere in mem, but it should be sufficient most of the time
       - max jump range: 256 MB -> 2^28 bits
       - to jump to further range: special instruction _jr_ (target address is specified through a reg)
+
+**addressing modes**
+> different ways to calculate the final address of the operand 
+1. register addressing: operand is a reg (add, sub, and, or, xor, nor, slt, sll, srl)
+2. immediate addressing: operand is a constant (16-bit) within the instruction itself (addi, andi, ori, slti)
+3. base addressing (displacement ~): operand is at the mem location whose address is sum of a reg and a constant in the instruction (lw, sw)
+  - offset specifies how many bytes away from your base address
+4. PC-relative addressing: address is sum of PC and constant in the instruction (beq, bne)
+  - base address stores in PC
+  - dislacement or offset is number of instructions (4 byte each instruction)
+5. Pseudo-direct addrssing: 26-bit of instruction concatenated with upper 4-bits of PC (j)
+  - since we gave some of the address (4 MSB in PC and last 2 00), it's called pseudo
+
+## Instruction set architecture 
+
+> part of the processor that is visible to the programmer or compiler writer -> the abstraction, the boundary between software and hardware
+
+**RISC vs CISC**
+> two major design philosophies for ISA
+1. Complex Instruction Set Computer (CISC)
+  - e.g. x86-32 (IA32) ..intel
+  - use single instruction performs complex operation
+    - VAX (mini computer) architecture has an instruction to multiply polynomials, string copying, FFT of images
+  - smaller program size as mem was premium
+    - because mem was expensive --> want to reduce program size 
+  - complex implementation, no room for hardware optimisation
+
+2. Reduced Instruction Set Computer (RISC)
+  - e.g. MIPS, ARM (TV/Washing M/Mobiles, M1)
+  - keep the instruction set small and **simple**, makes it easier to build/optimise hardware
+  - burden on software to combine simpler operations to implement high-levle language statement
+    - more and cheaper mem compred to history
+    - compiler optimisation
+   
+**5 CONCENPTS IN ISA DESIGN**
+1. Date Storage (where we get data?)
+
+- Storage architecture
+  - operands may be implicit (storage architecture) or explicit (reg thru MIPS)
+  - von Neumann architecture
+    - data (operands) are stored in mem
+  - for a processor, storage architecture concerns with
+    - where do we store the operands so that the computation can be performed?
+    - where do we store the computation result _afterwards_?
+    - how do we specify the operands?
+  - major storage architectures
+    - stack architecture
+      - operands are implicitly on top of the stack
+      - push and pop -- LIFO basis
+      - no value in the stack after end of operation
+      - e.g. add --> operands, add, pop result
+    - accumulator architecture
+      - one operand is implicitly in the accumulator (a special reg)
+      - e.g. IBM 701, DEC PDP-8, Synatak 6502
+      - load value of 1st operand into accumulator, then 2nd operand implicitly taken from the accumulator (added into the accumulator and stored) --> result taken from accumulator at the end
+    - General purpose reg architecture
+      - only explicit operands
+      - load operands into respective source reg and specify dest reg 
+      - reg-mem architecture
+        - one operand in mem
+        - Motorola 68000, intel 80386
+      - reg-reg (or load-store) architecture
+        - MIPS, DEC Alpha, ARM, M1
+    - mem-mem architecture
+      - all operands in mem
+      - e.g. DEC VAX (mini comp but size of 4 refrigerators)
+      - no use of reg; read the mem and perform operation and store directly 
+  - slide 9 for comparison of addition operator (L10P4)
+  - modern processors
+    - GPR is the most common choice for storage design
+    - RISC computers typically use reg-reg (load/store) deisgn (e.g. MIPS, ARM)
+      - simplify hardware design and balanced pipeline (optimise performance)
+    - CISC com use a miXture of reg-reg and reg-mem (e.g. IA32)
+
+- General purpose reg architecture (MIPS)
+  - add, $s1, $s2, $s3 (specify instr through reg)
+
+2. mem addressing modes (how we access data from mem?)
+
+- given k-bit address, the address space is of size 2^k
+- each mem transfer consists of one word of n bits
+
+3. operations in the instruction set (types of oprs supported)
+
+
+4. instruction formats (types insr formats supported)
+
+
+5. encoding the instruction set (how: instr -> binary bits)
