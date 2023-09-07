@@ -721,6 +721,32 @@ MIPS ref sheet:
 
 - given k-bit address, the address space is of size 2^k
 - each mem transfer consists of one word of n bits
+- L10P5 explain the various address/data bus and control lines connecting the processor to the memory
+- Endianness:
+  - > the relative ordering of the bytes in a multiple-byte word stored in memory
+  - Store LSB/MSB first (read from lowest/highest to highest/lowest address respectively)
+    - big endian
+    - little endian
+    - collectively known as endianness
+  - the endianness of MIPS is actually implementation specific
+  - big-endian
+    - MSB stored in the lowest address
+    - e.g. IBM 360/370, Motorola 68000, MIPS (Silicon Graphics), SPARC
+  - little-endian
+    - LSB stores in lowest address
+    - e.g. Intel 80x86, DEC VAC, DEC Alpha
+    - but no need change ordering in pair in address (the 8 bits)
+
+**Addressing modes**
+- > ways to specify an operand in an assembly language
+- in MIPS, only 3 addressing modes:
+  - reg
+    - operand is in a reg (e.g add $t1, $t2, $t3)
+  - immediate
+    - operand in specified in the instruction directly (e.g. addi $t1, $t2, 98)
+  - displacement
+    - operand is in mem with address calcuated as Base + Offset (e.g. lw $t1, 20($t2))
+  - there are other addressing modes (reg indirect, indexed/based, direct or absolute, mem indirect, auto-increment, auto-decrement, scaled) (slide 19) 
 
 3. operations in the instruction set (types of oprs supported)
 
