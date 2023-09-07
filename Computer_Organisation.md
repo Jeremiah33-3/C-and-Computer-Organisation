@@ -750,8 +750,57 @@ MIPS ref sheet:
 
 3. operations in the instruction set (types of oprs supported)
 
+**Standard Operations in an instruction set**
+- arithmetic operations, logical operations, shift, data movement, control flow, subroutine linkage, interrupt, synchronisation, string, graphics
+- slide 21 
+
+**Frequently used instructions** 
+- optimisation
+- slide 22
+  - make these (fui) instructions fast 
+- profiler (SW)
+  - code
+  - mem
+  - cache performance
+  - most freq used instructions
 
 4. instruction formats (types insr formats supported)
 
+ISA design, need to consider: 
+- instr length (32 bits in MIPS)
+  - var-length instructions (CISC) 
+    - Intel 80x86 -- instructions vary from 1 to 17 bytes long
+    - Digital VAX -- instructions vary from 1 to 54 bytes long
+    - require muti-step fetch and decode
+    - allow for more flexible (but complex) and compact instruction set
+  - fixed-length instructions (RISC)
+    - used in most RISC
+    - MIPS, PowerPC, ARM: instructions are 4 bytes long
+      - ARM (64 bit): VLIW arch (Very Long Instr Word) -- 64 bit instr size
+    - allow for easy fetch and decode
+    - simplify pipelinging and parallelism
+    - instructions bits are scarce
+  - Hybrid instructions: a mix of var and fixed length instr
+- instr fields (divide into smaller fields) 
+  - types and szie of operands
+  - R,I, J format
+  - an instruction consists of
+    - opcode: unique code to specify the desired operation
+    - operands: zero or more additional info needed for the operation
+  - operation designates the type and size of the operands
+    - typical type and size: character (8 bits), half-word (eg. 16 bits), word (eg. 32 bits), single-precision floating point (eg 1 word), double-precision floating point (eg 2 words)
+  - expectations from any new 32-bit arch
+    - support for 8-, 16-, 32-bit int and 32-bit and 64-bit floating point operations. A 64-bit arch would need to support 64-bit int as well
 
 5. encoding the instruction set (how: instr -> binary bits)
+
+- instruction encoding
+  - how are instrcutions represented in bin format for execution by the processor
+    - assembly instr (R, I, J) -> binary bits
+  - issues: code size (program size vs complexity of instr, RISC) , speed/performance, design complexity
+  - things to be decided
+    - no of reg (e.g. 32 reg, 5 bits to index them, for instr format -- need to allocate for instr encoding) 
+    - no of addressing modes (more addressing modes, higher complexity)
+    - no of operands in an instr
+  - different competing forces 
+- encoding for fixed-length instructions 
