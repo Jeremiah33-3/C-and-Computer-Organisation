@@ -794,13 +794,39 @@ ISA design, need to consider:
 
 5. encoding the instruction set (how: instr -> binary bits)
 
-- instruction encoding
+- **instruction encoding**
   - how are instrcutions represented in bin format for execution by the processor
     - assembly instr (R, I, J) -> binary bits
-  - issues: code size (program size vs complexity of instr, RISC) , speed/performance, design complexity
+  - issues: code size (program size vs complexity of instr -- trade-off, RISC) , speed/performance, design complexity
   - things to be decided
     - no of reg (e.g. 32 reg, 5 bits to index them, for instr format -- need to allocate for instr encoding) 
     - no of addressing modes (more addressing modes, higher complexity)
-    - no of operands in an instr
-  - different competing forces 
-- encoding for fixed-length instructions 
+    - no of operands in an instr (e.g. MIPS -> 3 reg OR 2 reg + 1 immed OR reg + mem)
+  - different competing forces
+    - have many reg and addressing modes
+    - reduce code size (RISC vs CISC) 
+    - have instr length that is easy to handle (fixed-length instr (vs var legnth) are easier to handle)
+      - one problem with fixed-length: inflexible and need to have an opcode bits
+     
+- **encoding choices**
+  - 3 choices: var, fixed, hybrid
+  - var (VAX, Intel 80x86)
+    - operation and no of operands, address speficer 1, address field 1..
+  - fixed (Alpha, ARM, MIPS, PowerPC, SPARC, SuperH)
+    - operation, address field 1, add field 2, add field 3
+    - presents a much more interesting challenge:
+      - how to fit multiple sets of instr types into same (limited) no of bits --> work with the most constrained instr types first
+      - Expanding opcode scheme:
+        - opcode has var lengths for different instr
+        - > extend opcode for certain instr that may result in unused bits
+        - a good way to max the instr bits
+        - a fixed length opcode may waste instructions bits (e.g. only 1 operand) and max total no of instr is 2^6 or 64 (for 6 bit opcode)
+        - how to distinguish between operantion types 9Type A and Type B): think about MIPS, simply set the opcode as all 0 for R-format but use the extended opcode called funct to distinguish
+        - how many diff instr do we really have: different ways to compute the many diff instr depending on waht to max and/or minimise❗
+      - max no of instructions
+        - first to max the instr that has more no of bits for the opcode (min instr for lesser bits)
+        - detailed walkthrough (L10P8 20:24, slide 32) (2^6 - 1) * 2^5
+  - hybrid
+    - not focused
+
+ 
