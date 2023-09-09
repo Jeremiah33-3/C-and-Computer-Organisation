@@ -837,6 +837,6 @@ ISA design, need to consider:
     - minimise type A instruction (with 2 addresses) to max type B (with one address) 
   2. What is the minimum total number of instructions, assuming the encoding space is completely utilised (that is, no more instructions can be accommodated)?
     - encoding space --> no unsed bit in opcode/funct
-    - minimise instr that have more no of bits (type B)
+    - minimise instr that have more no of bits (type B) to minimise the no of instr
 
  
