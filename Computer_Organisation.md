@@ -828,5 +828,15 @@ ISA design, need to consider:
         - detailed walkthrough (L10P8 20:24, slide 32) (2^6 - 1) * 2^5
   - hybrid
     - not focused
+- example:
+  - Design an expanding opcode for the following to be encoded in a 36-bit instruction format. An address takes up 15 bits and a register number 3 bits. 7 instructions with two addresses and one register number. § 500 instructions with one address and one register number. § 50 instructions with no address or register.
+    - start with the most restrictive cast (in this case, the first one, 7 instructions..)
+    - to find number of bits needed to encode the instr: math.ceiling( log2 (x) ) where x is the number of instr
+  - A certain machine has 12-bit instructions and 4-bit addresses. Some instructions have one address and others have two. Both types of instructions exist in the machine
+  1. What is the maximum number of instructions with one address?
+    - minimise type A instruction (with 2 addresses) to max type B (with one address) 
+  2. What is the minimum total number of instructions, assuming the encoding space is completely utilised (that is, no more instructions can be accommodated)?
+    - encoding space --> no unsed bit in opcode/funct
+    - minimise instr that have more no of bits (type B)
 
  
