@@ -839,4 +839,43 @@ ISA design, need to consider:
     - encoding space --> no unsed bit in opcode/funct
     - minimise instr that have more no of bits (type B) to minimise the no of instr
 
+## The processor: Datapath
+
+- for processor, need to understand how to design (1) datapath (2) control path (2 major components)
+
+### (1) Datapath
+- collection of components that process data
+- performs the arithmetic, logical, and mem operations (including writing data back to the mem/reg, loading data from mem/reg)
+
+**MISP Processor implmentation**
+- simplest possible implementation of a subset of the core MIPS ISA:
+  - arithmetic and logical operations
+    - note: andi and ori is not supported in this current processor design because we always do "sign xtension" on immediate value
+  - data transfer instructions
+  - branches
+- shift instructions (sll, srl) and J-type instructions (found out)
+  - sll and srl can be done by multiplication which can be done by add with loop. j can be done by beq $zero, $zero, label if we ignore the difference related to 256MB blocks
+ 
+**Basic instruction execution cycle**
+Executed sequentially one by one until a control flow change occurs
+1. fetch
+  - get instruction from mem
+  - address is in PC reg --> which stores add of next instr being executed 
+2. decode
+  - find out the operation required (e.g. add or sub, srl...)
+3. operand fetch
+  - get operand(s) needed for operation
+  - in reg/temp reg... ($s1...)
+4. execute
+  - perform require operation (e.g. ALU) 
+5. result write (store) 
+  - store the result of the operation
+- slide 7 for picture of examples
+- slide 8 for deisgn changes to make it simpler
+  - merge deocde and operand fetch stage
+  - split execute into ALU (calculation) and memory access
+
+### (2) Control path
+- tells the datapath, mem and I/O devices what to do according to program instructions
+- control signals 
  
