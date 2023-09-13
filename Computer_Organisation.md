@@ -925,15 +925,95 @@ elem 2 -- adder
   - have a write data (data write into write reg if regwrite is 1) 
 - RegWrite
   - is a control signal to indicate the (1) writing of reg --> (2) 1(True) = Write, (False) = No write
-- multiplexer, the device (RegDst, the control signal) -- choice in destination 
+- multiplexer, the device (RegDst, the control signal rt or rd) -- choice in destination 
   - a control signal to choose either Inst\[20:16] or Inst\[15:11] as the write reg number
   - use a multiplexer to choose the correct write reg number based on instr type
   - 1 = rd reg, 0 = rt reg as the write reg
   - multiplexer
     - > a device that takes n inputs and output 1 of the n inputs
-    - 
+    - function: selects one input from multiple input lines
+    - input: n lines with same width
+    - control: m bits were n = 2^m
+    - output: select ith input line if control = i
+    - slide 26
+   
+**choice of data 2: the immediate value**
+- use a multiplexer (2nd) to choose the correct operand 2. sign extend the 16-bit immediate value to 32-bit
+  - ALUSrc (a control signal to choose either read data 2 or the sign extended inst\[15:0] as the second operand)
 
-3. 
+3. ALU Stage
+- ALR = Arithmetic-Logic-Unit
+- aka execution stage
+- > stage where most real work for most instructions are performed here
+  - arithmetic (add, sub), shifting, logival (and, or)
+  - mem operation, address calculation
+  - branch operation: perform reg comparison and target address calculation
+- input from the previous state (decode): operations and operand(s)
+- output to the next state (mem): caluclate result
+- block diagram (slide 32)
+
+**Element: arithmetic logic unit**
+- > a combinational logic to implement arithmetic and logical operations
+- inputs: 2 32-bit numbers
+- control: 4-bit to decide the particular op (ALUcontrol)
+- outputs: result of the arithmetic/logical op, a 1-bit signal to indicate whether the result is zero
+
+**difficulty: branch instr**
+- need to perform 2 calculations
+  - 1)the branch outcome:
+    - use ALU to compare the reg
+    - the 1-bit "isZero" signal is enough to handle equal/not equal check
+  - 2)branch target address
+    - introduce additional logic to calculate the address (PC + 4 + imm * 4)
+    - need PC (from Fetch Stage)
+    - need Offset (from Decode Stage)
+- note: two things need to happen to actually take the branch
+  - 1)instr is a branch instr
+  - 2)condition of the branch is true
+- slide 36
+- Note I format ALUSrc is usally 0 because add imm, but in this its 1 because we are checking rt and rs
+- PCSrc multiplexer --> target address computed, to choose either PC + 4 (next instruction chosen), if 1, the branch target will be chosen (PC + 4 + imm *4 )
+
+4. Memory stage
+- aka instruction mem access stage
+- only load and store instr need to perform operation in this stage
+  - use mem address calculated by ALU stage
+  - read from or write to data mem
+- all other instr remain idle
+  - result from ALU Stage will pass through to be used in Register Write stage if applicable
+- input from previous stage (alu): computation result to be sed as mem address (if applicable)
+   - note: for store word, regvalue get from decode stage then pass to reg write stage
+- output to the next stage (reg write): result to be stored (if applicable)
+- block diagram: slide 38 L11
+  - data mem and instr mem (both in RAM) --> but data mem stores program data, instr mem stores program instr
+ 
+**element: data mem**
+> storage element for the data of a program
+- inputs: mem address + data to be written (Wrte Data) for store instructions
+- control: read and write controls; only one can be asserted at any point of time
+  - MemWrite and MemRead
+  - if MW = 1 and MR = 0: data mem in Write Data will be written into address given
+  - if MW = 0 and MR = 1: content of the address will be passed to Read Data
+  - if both 0 --> do nothing
+  - if both 1 --> sth wrong with your logic 
+- output: data read from mem (read data) for load instructions
+- slide 40 for lw example
+
+5. Reg Write Stage
+- most instr write the result of some computation into a reg
+  - e.g. arithmetic, logical, shifts, loads, set-less-than
+  - need destination reg number and computation result
+- exceptions are stores, branches, jumps:
+  - there are no results to be written
+  - these instructions remain idle in this stage
+- input from prev stage (mem): computation result eiher from mem or ALU
+- block diagram at slide 44 L11
+  - result comes from mem or ALU: determines by multiplexer, Mem-To-Reg
+  - write register: from decode stage (reg to write)
+  - write data: taken from the mem stage (data to be written)
+  - result write stage has no additional elem:
+    - basically just route the correct result into reg file
+    - the Write Register (abovementioned) number is generated way back in the Decode Stage
 
 ### (2) Control path
 - tells the datapath, mem and I/O devices what to do according to program instructions
