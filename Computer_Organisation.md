@@ -874,6 +874,66 @@ Executed sequentially one by one until a control flow change occurs
 - slide 8 for deisgn changes to make it simpler
   - merge deocde and operand fetch stage
   - split execute into ALU (calculation) and memory access
+ 
+**details for each stage**
+note: has to look from pov of CPU designer (write better codes) 
+1. FETCH
+- use PC to fetch the instruction from mem
+  - PC is implemented as a special reg in the processor
+- increment the PC by 4 to get the address of the next instruction
+  - each instruction is 32 bits -> 4 bytes (we know next instruction is PC + 4)
+  - note the exception when branc/jump instruction is executed
+- output (pass) to decode stage
+
+elem 1 -- instruction mem:
+- > storage element for the instruction
+  - has an internal state that stores info
+  - is a sequential circuit (circuits for storing some data) 
+  - clock signal is assumed and not shown
+  - supply instruction given the address
+    - given instruction address M as input, the mem outputs the content at address M
+    - conceptual diagram of the mem layout (slide 15)
+
+elem 2 -- adder
+- > combination logic to implement the addition of two numbers
+- inputs: 2 32-bit numbers A.B --> output: sum (32-bit) of the input numbers, A + B
+
+**the idea of clocking**
+- slide 17
+- to read and update the PC "at the same time"
+- to make this work properly, use a "clock"
+  - PC is read during the first half of the clock period and it is updated with PC + 4 at th next rising clock edge
+  - between the two rising clock edge, the value of the PC is stable and can be read
+  - PC is nth but a special form of reg --> data stored in the sequential circuit 
+
+2. Decode
+- Firstly, gather data from the instruction fields
+  - read the opcode to determine instruction type and field lengths
+  - read data from all necessary reg (can be two, one or zero)
+- input from previous stage (fetch): instruction to be executed
+- output to the next stage (ALU): operation and the necessary operands
+- slide 19 for block diagram
+  - read and write reg
+  - collection of reg known as reg file
+  - assembled instruction
+
+- reg file
+  - > a collection of 32 reg
+  - each reg is 32-bit wide, can be read/written by specifying reg number
+  - read at most two reg per instruction
+  - write at most one reg per instruction
+  - have a write data (data write into write reg if regwrite is 1) 
+- RegWrite
+  - is a control signal to indicate the (1) writing of reg --> (2) 1(True) = Write, (False) = No write
+- multiplexer, the device (RegDst, the control signal) -- choice in destination 
+  - a control signal to choose either Inst\[20:16] or Inst\[15:11] as the write reg number
+  - use a multiplexer to choose the correct write reg number based on instr type
+  - 1 = rd reg, 0 = rt reg as the write reg
+  - multiplexer
+    - > a device that takes n inputs and output 1 of the n inputs
+    - 
+
+3. 
 
 ### (2) Control path
 - tells the datapath, mem and I/O devices what to do according to program instructions
