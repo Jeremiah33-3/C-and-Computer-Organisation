@@ -1017,5 +1017,115 @@ elem 2 -- adder
 
 ### (2) Control path
 - tells the datapath, mem and I/O devices what to do according to program instructions
-- control signals 
+- control signals
+- learning how these signals are generated
+
+**identified control signals**
+- RegDist: decode/operand fetch -> select the dest reg number (based on instr format)
+- RegWrite: decode/operand fetch RegWrite -> enable writing of register
+- ALUSrc: ALU -> select the 2nd operand for ALU (depends on instr format)
+- ALUcontrol: ALU -> select the operation to be performed
+- MemRead/MemWrite: memory -> enable reading/writing of data memory 
+- MemToReg: RegWrite -> select the result to be written back to reg file 
+- PCSrc: Memory/ReWrite -> select the next PC value
+
+**generating control signals**
+- control signals are generated based on the instr to be executed: 
+  - opcode -> instr format (R: 0, I: remaining values, J: 2 )
+  - R-Type instruction has addtional information of the 6-bit funct code (Inst\[5:0] field) --> funct will then be used to generate funct code
+- ide: design a combinational circuit (vs sequential circuit, which has a clock signal to read write) to generate these signals based on opcode and possibly funct code
+  - a control unit is needed (draft design at slide 6)
  
+**implementation**
+- approach
+  - take note of instr subset to be implemented: opcode and funct (if applicable)
+    - R-type, I-type (slide 8)
+    - will be using opcode and/or funct code to different type of instr 
+  - go thru each signal: observe how the signal is generated based on the instr opcode and/or funct code
+  - construct truth table
+    - cs1231s --> but we going to use 1/0 to represent T/F
+  - design the control unit using logic gates (hardware H/W [logic gates](https://en.wikipedia.org/wiki/Logic_gate) which affect AND, OR..)
+    - use logic gates to implement truth tables in our exercise
+
+- control signal (1): RegDst
+  - choose between dest reg (rd or or rt)
+  - if opcode is not 0 -> signal is 0, rd will be taken as the WR, else True (1), WR = Inst\[15:11] which is rd
+
+- control signal (2): RegWrite
+  - 0/1 used to control whether data should be written to WR from WD
+  - 0 nth happens no reg write, 1 then WD will be written in WR (the new value)
+ 
+- control signal (3): ALUSrc ❗
+  - select the 2nd op for the ALU (1st op comes from rd1, usually rs)
+  - can be wither from RD2 value or immediate (sign extended to 32-bits)
+  - 0 -> RD2, 1 -> immediate op
+ 
+- control signal (3): MemRead 
+  - Data memory, if 0 -> nth is read from the address; else if 1, the value in the address will be read into the RD
+ 
+- control signal (4): MemWrite
+  - write data into mem, if 0 nothing is written, if 1: the value in Write Data will be written into the mem address at Address
+ 
+- control signal (5): MemToReg ❗
+  - the input of MUX is swapped in this case (1 is on top, 0 is below)
+  - choose between RD and ALR output then passed into WD of the reg
+  - if 0, ALU output is written to WD, else 1 RD from the memory is written into WD
+ 
+- control signal (6): PCSrc
+  - choose between PC +4 or branch target address (PC + 4 = imm * 4)
+  - if 0, PC +4, else is branch address
+  - set to 1 only if (1) the instr is a branch instr and (2) the branch is taken
+  - to know if instr is branch instr --> look at the opcode
+  - to know if the branch is taken, look at isZero value in ALU
+  - hence PCSrc has a logic gate (AND) to check for opcode and isZero --> if these two values are 1
+ 
+- control signal (7): ALUControl ❗❗(L12P3)
+  - ALU is a combinational circuit (input change, output is changed immediately; unlike sequential circuit whose output changes at rising clock signal) capable of performing several arithmetic opeations
+  - required operations for MIPS subset --> AND, OR, add, substract, slt, NOR..
+  - a simplied 1-bit MIPS ALU can be implemented as follows
+    - 4 control bits
+    - 1 bit to invert input A --> if 0 will keep A, else if 1, will get not A/A'
+    - 1 bit to inver input B (same logic as input A)
+    - Operation is 2 bit --> to seelct one of the 3 operations (AND 00, OR 01, add 10)
+    - components: Ainvert(MUX), Binvert(MUX), Cin(carry in), Cout(carry out, the output), Operation(AND, OR, add), Result (output)
+  - to understand ALUcontrol 4-bit signal controls:
+    - slide 21 e.g. subtract B will be B' and using add; Ainvert, Binvert and AND -> NOR
+      - by De Morgan's law: (A+B)' = A' dot B' (intersection)
+  - how the ALUcontrol signals are generated
+    - the singal depends on opcode **and** funct code field --> truth table and simplified boolean expression
+    - brute force approach(use opcode and funct code directly by finding exp with 12 variables) and multilevel decoding approach (we are using this, less complicated)
+    - multilevel decoding (L12P4)
+      - use some of the input to reduce the cases, then generate the full output
+      - simplify the design process, reduce the size of the main controller, potentiall speedup the circuit
+      - intermediate signal: ALUop
+        - use opcode to generat a 2-bit ALUop signal from 6-bit opcode: lw/sw is 00, beq is 01, R-type is 10 (x -> don't care term is no funct code)
+        - use ALUop signal and funct code filed (for R-Type instr) to generate the 4-bit ALUcontrol signal)
+      - design of ALU control unit
+        - input: 6-bit funct field and 2-bit ALUop
+        - output: 4-bit ALUcontrol
+        - find the simplied expressions we are using truth table (slide 26 and 27)
+       
+**control design**
+- individual signals and expected values --> we've seen --> synthesise and design the controller itself
+- typical digital design steps: (1) fill in truth table (input: opcode, output: various control signals) (2) derive simplified expression for each signal
+- what is inside this control unit
+- slide 30 output --> fill up the value in the different control signals for different instr formats and instr (can include don't care value x)
+- slide 31 input: opcode, then to value in hex
+- given the opcode, cobinational circuit will generate the control signals (output)
+
+ **big picture: instr execution**
+ - instr execution steps:
+   - (1) read contents of one or more storage elements (reg/mem)
+   - (2) perform computation through some combinational logic
+   - (3) write results to one or more storage elements (reg/mem)
+ - all these performed within a clock period (single cycle execution, done within one single clock period)
+ - drawback: calculate cycle time assuming negligible delays: mem (2ns), ALU/adders(2ns), reg file access (1ns) -> 6ns for ALU
+   - all instr take as much time as the slowest one (i.e. load) --> long cycle time for each instr
+ - solution: multicycle implementation
+   - break up the instr into execution steps: 91) instr fetch (2) instr decode and reg read (3) ALU op (4) Memory read/write (5) reg write
+   - each execution step takes one clock cycle
+     - cycle time is much shorter 9clock frequency is much higher
+   - instr take var number of clock cycles to complete execution
+ - solution 2: pipelining
+   - break up the instr into execution steps one per clock cycle
+   - allow different instr to be in different execution steps simultaneously 
