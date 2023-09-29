@@ -117,3 +117,49 @@
 - product of maxterms
   - given a truth table, obtain the product-of-maxterms expr by gathering the maxterms of the function (where output is 0)
   - pi
+
+## Logic circuits
+
+**Logic Gates**
+- Gate symbols
+  - AND: a- b- castle door rotate right
+  - OR: a- b- castle door but curve
+  - NOT: a- b- 🚩with open dot
+  - NAND: a- b- castle door with dot
+  - NOR: a- b- castle door with curve with dot
+  - XOR: a- b- curvy castle door with outline at curve
+- inverter
+  - invert the input
+  - A - 🚩with dot - A'
+  - A - dot 🚩 - A'
+- other gates: XOR/XNOR, how NAND and NOR gates can be combined from AND/OR and invert(NOT)
+
+**Logic circuits deeo dive**
+- fan-in: the number of inputs of a gate
+- gates may have fan-in more than 2
+- every input must be connected in a working circuit (multiple inputs circuit, can put 1/0 but no empty input)
+- given a bool expr, can implement it as a logic circuit (boo func)
+  - if complemented literals are availble, we don't need to use NOT operation
+- when analysing logic circuits: may ask to analyse it to obtain the logic expression
+
+**universal gates**
+- AND/OR/NOT gates basically because they are sufficient for building any Boo func
+- {AND, OR, NOT} aka **complete set of logic**
+- however, other gates are used becuase: usefulness (XOR for parity bit generation), economical, and self-suufficiency (NAND/NOR gates)
+- NAND Gate
+  - {NAND} a complete set of logic: proof -- implement NOT/AND/OR using only NAND gates
+- {NOR} is a complete set of logic
+
+**SOP and NAND circuits**
+- an SOP expr can be implemented using 2-level AND-OR circuit or 2-level NAND circuit
+
+**POS and NOR circuits**
+- can be implemented using 2-level OR-AND circuit or 2-level NOR circuit
+
+**Integrated circuit**
+- ~ chip
+
+**Porgramming logic array (PLA)**
+- a programmable integrated circuit - implements SOP circuits, allow multiple outputs
+- 2 stages: AND gates = product terms and OR gates = outputs
+- connection between inputs and the planes can be 'burned'
