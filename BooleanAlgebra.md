@@ -163,3 +163,35 @@
 - a programmable integrated circuit - implements SOP circuits, allow multiple outputs
 - 2 stages: AND gates = product terms and OR gates = outputs
 - connection between inputs and the planes can be 'burned'
+
+## simplification, functions, Kmap
+
+**function simplification**
+- why: simpler expr leads to circuit that uses fewer logic gates + cheaper + uses less power + sometimes faster
+- technicues
+  - algebraic: useing theorems, open-ended, require skills
+  - Karnaugh maps: easy to use, limited to no more than 6 var
+  - quine-mccluskey: suitable for automation, can handle many var (but computationally intensive)
+
+**algebraic simplification**
+- aims to minimise (1) number of literals and (2) number of terms
+- usually try to minimise number of literals 
+
+**half adder**
+- half adder: circuit that addes 2 single bits (X ,Y) to produce a result of 2 bits (C, S)
+- can be represented: black-boc representation and truth table
+- in canonical form (sum of minterms)
+  - C = X dot Y
+  - S = X' dot Y + X dot Y'
+- output of S can be simplified further into S = X XOR Y 
+
+**gray code**
+- aka reflected binary code
+-  unweighted (not an arithmetic code)
+- only a single bit change from one code value to the next
+- not restricted to dec digits: n bits --> 2^n values
+- advantages: good for error detection
+
+**Kmap**
+- resource: https://www.youtube.com/watch?v=RO5alU6PpSU
+- to figure out the function from Kmap, look at how output changes when input changes 
