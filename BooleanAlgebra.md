@@ -183,15 +183,55 @@
 - in canonical form (sum of minterms)
   - C = X dot Y
   - S = X' dot Y + X dot Y'
-- output of S can be simplified further into S = X XOR Y 
+- output of S can be simplified further into S = X XOR Y
+- contrast to full-adder
 
 **gray code**
 - aka reflected binary code
--  unweighted (not an arithmetic code)
+- unweighted (not an arithmetic code) --> each position don't hold arithmetic weight 
 - only a single bit change from one code value to the next
 - not restricted to dec digits: n bits --> 2^n values
 - advantages: good for error detection
+- cannot have duplicate values too
+- can generate standard Gray code by using reflection in 2s 
 
 **Kmap**
 - resource: https://www.youtube.com/watch?v=RO5alU6PpSU
-- to figure out the function from Kmap, look at how output changes when input changes 
+- to figure out the function from Kmap, look at how output changes when input changes
+- Kmap > a systematic method to obtain simplified SOP expressions
+- objective: fewest possible product terms and literals
+- special/abstract form of venn diagram, organised as a matrix of squares where each square represetns a minterm and two adj squares differ by exactly one literal (gray code sequence) 
+- easy to use
+- but limited to 5 to 6 var
+- A k-map for a function is filled by putting a '1' in the square corresponds to a minterm of the function and a '0' otherwise
+- in general, each cell in an n-variable K-map has n adj neighbours
+
+
+Using K map
+- Unifying theorem (complement)
+- group as many cells as possible -- larger the group, the fewer the no of literals in the resulting product term
+- select as few groups as possible to cover all the minterms of the function -- the fewer no of product terms in the simplified SOP expr
+- valid grouping -- the terms are neighbours
+- invalid -- usually diagonal groupings or too big a chunk
+- If functions aren't in Sum of min form -- convert to SOP terms then expand the SOP exp into sum of minterms expr or fill in the k-map directly based on the SOP expr
+
+Prime implication and essential PI
+- to find the simplest (minimal) SOP expr from a k-map, you need to obtain
+  - min no of literals per product term
+  - min no of product terms
+- achieved through k-map by
+  - using bigger groupings of minterms (prime implicants) where possible and
+  - using no redundant gorupings (look for epi)
+- implicant: > a product term that could be used to cover minterms of the function
+- PI: a product term obtained by combining the max possible no of minterms from adjacent squares in the map (biggest grouping possible) (PI can overlap)
+- and no redundant group in PI --> look out for EPI, a PI that includes at least one mintern that is not covered by any other PI
+
+Finding simplified SOP expr 
+- algo
+  1. circle all PI on the Kmap
+  2. identify and select all EPI for the cover
+  3. select a min subset of the remaining PI to complete the cover, that is, to cover those minterms not convered by the EPI
+- simplified POS expr can be obtained by grouping the maxterms (0s) of the given function
+  - can draw Kmap of F', 0 becomes 1, 1 becomes 0
+- Don't-care condition is output that can be either 1 or 0 (denoted by X or d)
+  - can be used to help simplify Boo expr further in Kmaps because they could be chosen to be either 0 or 1 depending on which choice results in a simpler expr 
