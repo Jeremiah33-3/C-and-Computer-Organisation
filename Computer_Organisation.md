@@ -1209,6 +1209,17 @@ Learnt:
 6. **magniture comparator**
 > Magnitude comparator: compares 2 unsigned values A and B, to check if A>B, A=B, or A<B
 - using classical methods, require 2^2n rows in truth table to design an n-bit magnitude comparator
-- clue: exploit regularity in the design 
+- clue: exploit regularity in the design
+- A < B, A > B, A = B case --> use logic equation to represent them => should produce 1 if any of the case is true
+- use a mask (?) xi = Ai·Bi + AI'·BI' -- XOR 
+  - e.g. A<B => A3'·B3 + x3·A2'·B2 + x3·x2·A1'·B1 + x3·x2·x1·A0'·B0
 
 7. **circuit delays**
+A logic gate can have delay (time t)
+- Given a logic gate with delay t. If inputs are stable at times t1, t2, …, tn, then the earliest time in which the output will be stable is:
+  - max( t1, t2, …, tn ) + t
+- to calculate the delays of all outputs of a combinational circuit, repeat above rule for all gates (inputs sent in simultaneously, max time set time)
+- full adder delay:
+  - Sn = ( (n - 1)2 + 2) t
+  - Cn+1 = ( (n - 1)2 + 3) t
+  - max delay: ( (n - 1)2 + 3) t
