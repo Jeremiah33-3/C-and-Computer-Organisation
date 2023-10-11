@@ -1129,3 +1129,86 @@ elem 2 -- adder
  - solution 2: pipelining
    - break up the instr into execution steps one per clock cycle
    - allow different instr to be in different execution steps simultaneously 
+
+
+## Combinational circuit
+
+2 CLASSES OF LOGIC CIRCUITS
+combinational: 
+> a circuit which Each output depends entirely on the immediate (present) inputs
+Different from sequential circuit, which is:
+> Each output depends on both present inputs and state.
+
+1. **Analysis procedure**
+steps:
+- Label the inputs and outputs
+- Obtain the functions of intermediate points and the outputs.
+- Draw the truth table
+- Deduce the functionality of the circuit ➡️ Half adder (e.g)
+
+2. **Design methods**
+- Different combinational circuit design methods:
+  - § Gate-level design method (with logic gates)
+  - § Block-level design method (with functional blocks)
+- ~ make use of logic gates and useful function blocks
+  - available as integrated circuit IC chips
+- main objectives of circuit design:
+  - reduce cost (no of gates for small circuits; number of IC packages for complex circuits))
+  - Increase speed
+  - Design simplicity (re-use blocks where possible)
+ 
+3. **Gate-level (SSI) design**
+Design procedure:
+- state problem (e.g. build a half adder) 
+- determine and label the inputs and outputs of circuit
+- draw the truth table
+- obtain simplified boolean functions
+- draw the logic diagram
+
+full adder example:
+- to add two  binary numbers, we need to add 3 bits (including the carry)
+- can be made from two half adders
+- construct truth table again
+- C and S --> define as carry out and result respectively
+- carry in as Z
+- inputs as X and Y
+- try to reduce the number of terms 
+
+code converters 
+> takes an input code, translates to its equivalent output code
+- BCD excess-3 code converter
+  - input: BCD code
+  - output: Excess-3 code
+  - k map 4*4
+
+4. **block-level design**
+
+> block-level design method (as opposed to gate-level design) relies on algorithms or formulae of the circuit, which are obtained by decomposing the main problem to sub-problems recursively (until small enough to be directly solved by blocks of circuits)
+- for more complex circuits
+- 4-bit parallel adder
+  - can then be used to create
+    - BCD-to-Excess-3 Code Converter
+    - 16-bit Parallel Adder
+  - add 4-bit numbers together and a carry-in, to product a 5-bit result
+  - SSI design technique invalid here because truth table for 9-inputs (2^9 = 512)
+  - think about the function and possible addition formula for each pair of bit
+  - cascade 4 full adders via their carries
+  - Note that carry is propagated by cascading the carry from one full adder to the next.
+  - Called Parallel Adder because inputs are presented simultaneously (in parallel). Also called Ripple-Carry Adder
+- BCD to Excess-3 converter
+  - use problem-specific formla: excess-3 code = BCD code + 0011
+  - can use 4-bit parallel based on the formula 
+
+5. **summary of arithmetic circuits**
+Learnt:
+- half adder (truth table, block-level diagram, logic gates)
+- full adder (truth table, block-level diagram, logic gates)
+- 4-bit parallel adder: (formula, block-level diagram)
+  - cascading method 
+
+6. **magniture comparator**
+> Magnitude comparator: compares 2 unsigned values A and B, to check if A>B, A=B, or A<B
+- using classical methods, require 2^2n rows in truth table to design an n-bit magnitude comparator
+- clue: exploit regularity in the design 
+
+7. **circuit delays**
