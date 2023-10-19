@@ -78,4 +78,6 @@ Multiplexers: Implementing functions
   - (2) connect n var to the n sleection lines
   - (3) put '1' on a data line if it is a minterm of the function, or '0' otherwise
   - supply 0' to other var where minterm does not exists (from slide 34)
-- can use smaller mux to implement boo function 
+- can use smaller mux to implement boo function
+  - apply n var as the selection lines, then apply the remaining var to the inputs line (provided the function is preserved)
+  - procedue: 1) Express Boolean function in sum-of-minterms form. 2) Reserve one variable (may be the least significant one) for input lines of multiplexer, and use the rest for selection lines 3) Draw the truth table for function, by grouping inputs by selection line values, then determine multiplexer inputs by comparing input line (C) and function (F) for corresponding selection line values
