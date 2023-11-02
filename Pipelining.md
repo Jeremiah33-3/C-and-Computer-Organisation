@@ -120,3 +120,71 @@ WB Stage
   - I >> N (Number of instructions is much larger than number of stages)
 - speedup = timeseq / timepipeline = N
 - Pipeline processor can gain N times speedup, where N is the number of pipeline stages
+
+## Pipelining hazards
+
+1. Pipeline harzards
+  - Speedup from pipeline implementation: Based on the assumption that a new instructions can be "pumped" into pipeline every cycle
+  - However, there are pipeline hazards: Problems that prevent next instruction from immediately following previous instruction
+  - § Structural hazards: Simultaneous use of a hardware resource
+    - e.g. only a single mem module --> if two instructions reach memory stage at the same cycle, there is a problem
+    - to reolve this hazard, stall the pipeline (one solution)
+    - alternate solution: separate mem, split mem into data and instr mem
+    - single register module is also a hazard, but solution is toSplit cycle into half; first half for writing into a register; second half for reading from a reg, since **reg are very fast mem**
+    - and for reg, need to write first then read, because instruction is executed in order, the write instr is definitely from the prev instr
+  - § Data hazards: Data dependencies between instructions (instr dependencies)
+  - § Control hazards: Change in program flow (instr dependencies)
+  - can visualise execution via a horizontal-vaertical axes --> horizontal = the stages of an instr, vertical = the instructions in different pipeline stages (instr order)
+
+**Data hazard: data dependencies**
+- Instructions can have relationship that prevent pipeline execution, although a partial overlap maybe possible in some cases
+- When different instructions accesses (read/write) the same register
+  - Register contention is the cause of dependency: known as data dependency
+- When the execution of an instruction depends on another instruction
+  - Control flow is the cause of dependency, known as control dependency
+- Failure to handle dependencies can affect program correctness
+- "Read-After-Write" Definition: Occurs when a later instruction reads from the destination register written by an earlier instruction
+  - also known as true data dependency
+  - if i2 reads result from the reg before i1 can write the sult to the reg, i2 will get a stale result (old result)
+  - a solution to RAW: Forward the result to any trailing (later) instructions before it is reflected in register file --> Bypass (replace) the data read from register file
+  - but for **lw** instruction, data is needed before it is actually produced (read at the end of DM stage) so cannot be solved with forwarding, hence we need to **stall the pipeline**
+- WAR: Write-after-Read dependency and WAW: Write-after-Write dependency --> affect the processor only when instructions are executed out of program order, hence do not cause pipeline hazard
+- draw pipeline diagram to visualise data hazard
+
+**Control dependency**
+- Definition: An instruction j is control dependent on i if i controls whether or not j executes
+- Typically i would be a branch instruction
+- Incorrect execution: If i2 is allowed to execute before i1 is determined, register $1 maybe incorrectly changed
+- tracing the control path, decision of branch instr is made in MEM stage but may be too late in the pipeline processor (partially executed)
+- one solution is to stall pipeline which introduces 3 clock cycles delay (MEM statge): 20% is going to be branch on average, so there will be too heavy a stall penalty
+- alternate solutions: early branch resolution, branch prediction, delayed branching
+Early branch
+- Move branch decision calculation to earlier pipeline stage
+- Make decision in ID stage instead of MEM: Move branch target address calculation and move register comparison --> cannot use ALU for register comparison any more
+- wait until branch decision is known then fetch the correct instruction --> reduce from 3 to 1 clock cycle delay
+- problems: if the register(s) involved in the comparison is produced by preceding instruction --> further stall is needed (e.g. having an add's WR as the comparison reg for the beq instr next line)
+  - solution: Add forwarding path from ALU to ID stage though One clock cycle delay is still needed
+- problem is worse with load followed by branch
+  - solution: MEM to ID forwarding and 2 more stall cycles, but in this case, we ended up with 3 total stall cycles --> ALU to IF forwarding cannot help 
+Branch prediction
+- guess the outcome before it is products to reduce stalls
+- many branch prediction schemes, covering the simple prediction here
+- Simple prediction: All branches are assumed to be not taken --> Fetch the successor instruction and start pumping it through the pipeline stages
+- When the actual branch outcome is known:
+  - Not taken: Guessed correctly è No pipeline stall
+  - Taken: Guessed wrongly --> Wrong instructions in the pipeline --> Flush successor instruction from the pipeline
+- decision making moved to ID stage
+- as we calculate total execution cycles, can add the number of delays to the ideal pipeline case (e.g. if there are 10 iterations of the branch instr, and each bne instr incurs 1 cycle of delay, then there are 10 cycles of delay. Every bne incurs a cycle of delay to execute the next instr, so there are additional 10 cycles of delay. Total delay cycles = 20)
+- for branch prediction simple, since the last iteration prediction is correct, there will be no cycle of delay --> minus one. Not taken, then still delay 1 cycle/2
+Delayed Branching
+- Do something useful while waiting for the outcome
+- Observation: Branch outcome takes X number of cycles to be known --> X cycles stall
+- Idea: Move non-control dependent instructions into the X slots following a branch
+  - Known as the branch-delay slot --> These instructions are executed regardless of the branch outcome 
+- In MIPS processor: Branch-Delayed slot = 1 (with the early branch)
+- Best case scenario: There is an instruction preceding the branch which can be moved into the delayed slot
+  - note: Program correctness must be preserved!
+- Worst case scenario: Such instruction cannot be found --> Add a no-op (nop) instruction in the branch-delay slot
+- Re-ordering instructions is a common method of program optimization
+  - Compiler must be smart enough to do this
+  - Usually can find such an instruction at least 50% of the time
