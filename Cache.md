@@ -62,3 +62,37 @@ Key concept: Use a hierarchy of memory technologies -- Small but fast memory nea
   - valid bit indicating whether the cache line contains valid data
   - when there is a cache hit: Valid\[index] = TRUE && Tag\[index] = Tag\[mem addresss]
 - number of cache blocks = total bytes / byte of one block
+
+**Types of cache misses**
+- compulsory misses
+  - happens on the first access to a block; the blocl must be brought into the cache
+  - aka cold start misses or first reference misses 
+- conflict misses
+  - occur in the case of direct mapped cache or set associative cache, when several blocks are mapped to the same block/set
+  - aka collision misses or interference misses
+- capacity misses
+  - occur when blocks are discarded from cache as cache cannot contain all blocks needed(fully associated cache)
+
+handling cache misses:
+- on a read miss: data loaded into cache and then load from there to reg
+- write miss option 1: write allocate
+  - load the complete block from mem into cache
+  - change only the required word in cache
+  - write to main mem depends on write policy (write thru or write back)
+- write miss option 2: write around
+  - do not load the block to cache
+  - write directly to main mem only
+ 
+Store data in memory (sw); changing cache content: write policy
+- when cache and main mem are inconsistent (modified data only in cache, not in mem)
+  - solution 1: write-thru cache (write both to cache and to main mem)
+    - disadvantage: main mem is altered --> operate at the speed of main mem
+    - to counter inefficieny, put a write buffer between cache and main mem
+      - processor: writes data to cache + write buffer
+      - mem controller: write contents of the buffer to mem
+  - solution 2: write-back cache (only write to cache, write to main mem only when cache block is replaced or evicted)
+    - more popular
+    - problem: quite wasteful if we write back every evicted cache blocks
+    - solution: add an additional bit (dirty bit) to each cache block
+      - write operation will change dirty bit to 1 (only cache block is updated, no write to mem)
+      - when a cache is replaced --> only write back to mem if dirty bit is 1
