@@ -4,6 +4,7 @@
 
 And refer to bigger and slower memory only when you cannot find data/instruction in the faster memory.
 - worked because of the principle of locality: Program accesses only a small portion of the memory address space within a small time interval.
+- Direct Mapped Cache
 
 Pre-concepts to meditate on:
 1. Data transfer
@@ -17,7 +18,7 @@ We want to best of both worlds: A BIG and FAST memory; Memory system should perf
 Key concept: Use a hierarchy of memory technologies -- Small but fast memory near CPU, Large but slow memory farther away from CPU
 - understand memory hierarchy: speed = harddisk -> DRAM -> SRAM -> registers; sise = harddish > DRAM > SRAM > registers
 
-**cache**
+**cache (direct mapped cache)**
 - temporal locality:
   - If an item is referenced, it will tend to be referenced again soon
 - spatial locality
@@ -34,10 +35,10 @@ Key concept: Use a hierarchy of memory technologies -- Small but fast memory nea
     - virtual mem
     - OS managed: transparent to programmer (not in cs2100)
 - memory access time terminology
-  - hit: data is in cache
+  - hit: data wanted is in cache
     - hit rate: fraction of mem accesses that hit
     - hit time: time to access cache 
-  - miss: data is not in cache
+  - miss: data wanted is not in cache
     - miss rate = 1 - hit rate
     - miss penalty: time to replace cache block + hit time
   - hit time < miss penalty
@@ -47,7 +48,17 @@ Key concept: Use a hierarchy of memory technologies -- Small but fast memory nea
 - Cache Block/Line: Unit of transfer between memory and cache
 - Block size is typically one or more words (16-byte block = 4-word block)
 - observations:
-  - 1. 2N-byte blocks are aligned at 2N-byte boundaries
-    2. The addresses of words within a 2N-byte block have identical (32-N) most significant bits (MSB).
+  - 1. 2^N-byte blocks are aligned at 2^N-byte boundaries
+    2. The addresses of words within a 2^N-byte block have identical (32-N) most significant bits (MSB).
     3. Bits \[31:N] --> the block number
     4. Bits \[N-1:0] --> the byte offset within a block 
+- block number vs address (not the same) (N-1:0) bit is the block address --> cache index, map the blocks number to the cache index (smaller)
+- mapping function: cache index = (Blocknumber) % (number of cache blocks)
+- tag = block number / number of cache blocks
+  - multiple mem blocks an map to the same cache block, so same cache index; however they have a unique tag number (the left bits)
+- in sum, an mem address: block number, offset => break down further into tag, index, offset
+- along with a data block (line), cache also contais other admin info (overheads)
+  - tag of the mem block
+  - valid bit indicating whether the cache line contains valid data
+  - when there is a cache hit: Valid\[index] = TRUE && Tag\[index] = Tag\[mem addresss]
+- number of cache blocks = total bytes / byte of one block
