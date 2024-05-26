@@ -403,7 +403,8 @@ _- https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-inte
 ## Common header files
 
 ### Stdio.h
-> What is [header files](https://www.geeksforgeeks.org/header-files-in-c-cpp-and-its-uses/) \n
+> What is [header files](https://www.geeksforgeeks.org/header-files-in-c-cpp-and-its-uses/)
+
 > utility functions in sum, the header files contain a set of predefined library functions
 
 1. sizeof(data type)
