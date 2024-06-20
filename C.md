@@ -3,6 +3,9 @@
 ## [Documentation](https://devdocs.io/c/)
 - https://devdocs.io/c/
 
+## Extremely useful video explanation
+- https://www.bilibili.com/video/BV1Vm4y1r7jY/?spm_id_from=333.337.search-card.all.click
+
 ## edit, compile, exceute 
 
 - for python and JS, there is a REPL in the printer to see the result printed on screen, but not C (not compile and print on the fly)
