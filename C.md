@@ -110,6 +110,10 @@ C is high level lang -> but the lower end of the spectrum is due to:
 - recall data types take up a fixed bytes always (e.g. int is ususally 4 bytes)
 - increment the address by the size of data type it is pointing to (increment by 1 int, 4 bytes...)
 
+**pointer to multidimensional array**
+- *(arr + i) -> incrementing the array index by i elements 
+- *( *(arr + i) + j) -> increment by row, then by columns, equivalent to arr[i][j]
+
 **common mistake with pointers**
 - int *n; *n = 123; printf("%d\n", *n); ➡️ [segmentation fault](https://stackoverflow.com/questions/2346806/what-is-a-segmentation-fault) (core dumped) -> must remove the file "core" from your directory, takes up a lot of space
 
