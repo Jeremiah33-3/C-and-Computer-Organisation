@@ -29,3 +29,36 @@ If `arr` is the name of the array declared
 Thus the implication is:
 - incrementing both `arr` and `&arr[0]` by 1 gives the address of the ***next element***：  `arr+1` and `&arr[0]+1`
 - incrementing `&arr` increment the address by the size of the array (e.g if arr size is 40, `&arr+1` will gives an address {address of first element} + 40)
+
+### Segmentation fault
+> segfault occurs when a program tries to access memory that is not authorised to access or that does not exist
+
+Common scenarios （aka mistakes):
+- modifying a string literal
+ecause string literals are stored in read-only section of the mrmory
+```c
+*(str + 1) = 'n';
+```
+
+- accessing freed address
+```c
+int* p = malloc(8);
+*p = 100;
+free(p);
+*p = 110 // error: segfault
+```
+
+- accessing out of bounds array index
+- scanf error:
+```c
+int n = 2;
+scanf("%d", n);
+```
+
+- stack overflow
+- dereferencing an uninitialised (wild pointer) or null pointer
+```c
+int* ptr; // uninitialised ptr
+int* nptr = NULL; // null pointer
+printf("%d %d", *ptr, *ntpr);
+```
