@@ -92,7 +92,7 @@ An identifier implementing internal linkage is not accessible outside the transl
 
 2. External Linkage
 
-n identifier implementing external linkage is visible to every translation unit. `extern` implements external linkage.
+An identifier implementing external linkage is visible to every translation unit. `extern` implements external linkage.
  
 ## Pointers and functions
 
