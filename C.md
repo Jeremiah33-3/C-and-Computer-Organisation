@@ -70,6 +70,30 @@ Notes on preprocessor directives:
   - C compiler will substitute every code that matches the macro defined with the value specified during compilation.
   - do not put semicolon at the end
  
+## [Static and dynamic library ](https://www.geeksforgeeks.org/static-vs-dynamic-libraries/)
+Compilation of code -> linker links library functions to code -> 2 ways to do it 
+1. Static linking (static lib)
+> make a copy of all used library functions to the executable file
+
+It creates larger binary files -> more space on disk and main memory
+
+2. Dynamic linking (dynamic lib)
+> placing name of the library in the binary file. The actual linking happens when the program is run, when both the binary file and the library are in memory.
+
+--> [pragma comment](https://stackoverflow.com/questions/3484434/what-does-pragma-comment-mean)
+> compiler directive to leave a comment to the generated object file
+- `#pragma comment(lib, libname)` tells the linker to add the 'libname' library to the list of library dependencies
+
+## [internal vs external linkage](https://www.geeksforgeeks.org/internal-linkage-external-linkage-c/) (static and extern) 
+Firstly, to understand that linkage is different from scope. Scope of an identifier (var or const) is the part of the program where the ientifier is directly accessible, handled by the compiler. Linkage, on the other hand, is determined at the linking process handled by the linker; it determined how vars are linked by the linker -- whether the var can be used only within the translation unit the var is in or in every translation unit of the project.
+1. Internal Linkage
+
+An identifier implementing internal linkage is not accessible outside the translation unit it is declared in. This property is implemented using the `static` keywork on the identifier. 
+
+2. External Linkage
+
+n identifier implementing external linkage is visible to every translation unit. `extern` implements external linkage.
+ 
 ## Pointers and functions
 
 1. Pointer
