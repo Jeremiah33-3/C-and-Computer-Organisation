@@ -255,6 +255,7 @@ C is high level lang -> but the lower end of the spectrum is due to:
   - modifying array in a func
     - no need to use address operator since the arr itself is a pointer
     - but func can modify the content of the arr it received whether you intend or not (implication)
+    - thats mean when array is passed into it, `sizeof` operation on the array gives 8 bytes because that is the size of the pointer datatype
 
 2. strings
 > an array of chars with a null character "\0" at the end of the array (terminated by)
