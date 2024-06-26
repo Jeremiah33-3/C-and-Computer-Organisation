@@ -76,6 +76,7 @@ Notes on preprocessor directives:
 
 - type of the destination data type may be smaller than the source data type (narrow typecasting)
 - two forms: implicit and explicit
+
 Implicit type casting seems to be type conversion, compiler infers the datatype
 
 Explicit --> using the casting operator.
@@ -88,6 +89,7 @@ In expresssion: `dest_type a = (dest_type) b / c`
 
 - done at compile time, widening conversion
 - two forms: implicit and explicit
+
 Implicit type conversion is automatic, done by the compiler on its own. Takes place when there is multiple datatypes present in one expression; all datatype will be upgraded to the largest data type (bool -> char -> short int -> int -> unsigned int -> long -> unsigned -> long long -> float -> double -> long double).
 
 Explicit type conversion is type casting
