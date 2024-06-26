@@ -70,6 +70,27 @@ Notes on preprocessor directives:
   - C compiler will substitute every code that matches the macro defined with the value specified during compilation.
   - do not put semicolon at the end
  
+
+## [typecasting](https://www.geeksforgeeks.org/c-typecasting/) and [type conversion](https://www.geeksforgeeks.org/type-conversion-c/)
+> typecasting is the process of converting one data type to another using the casting operator during program design (different from type conversion)
+
+- type of the destination data type may be smaller than the source data type (narrow typecasting)
+- two forms: implicit and explicit
+Implicit type casting seems to be type conversion, compiler infers the datatype
+
+Explicit --> using the casting operator.
+In assignment: `dest_type a = (dest_type) b`{:.c}
+In expresssion: `dest_type a = (dest_type) b / c`{:.c}
+
+> type conversion is the process of converting one data type to another, may or may not be using the casting operator, performed by the compiler. (superset of type casting)
+
+- done at compile time, widening conversion
+- two forms: implicit and explicit
+Implicit type conversion is automatic, done by the compiler on its own. Takes place when there is multiple datatypes present in one expression; all datatype will be upgraded to the largest data type (bool -> char -> short int -> int -> unsigned int -> long -> unsigned -> long long -> float -> double -> long double).
+
+Explicit type conversion is type casting
+
+ 
 ## [Static and dynamic library ](https://www.geeksforgeeks.org/static-vs-dynamic-libraries/)
 Compilation of code -> linker links library functions to code -> 2 ways to do it 
 1. Static linking (static lib)
@@ -416,7 +437,6 @@ Arithmetic operations (in order of precedence):
 - generally: execution is left associative, respects parentheses rule, then precedence rule, then associative rule
 - truncate result if result can't be stored  (e.g. int n...; n = 9 * 4.5)
 - [pre-increment (++expr) vs post increment (expr++) ](https://www.geeksforgeeks.org/pre-increment-and-post-increment-in-c/)
-- ❗ note: in python, % is modulo, but in C, % is remainder 
 
 Mixed-type arthmetic operators:
 - when type casting and arithemetic operations occur in a statement
