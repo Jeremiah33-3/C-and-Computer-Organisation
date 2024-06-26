@@ -79,8 +79,10 @@ Notes on preprocessor directives:
 Implicit type casting seems to be type conversion, compiler infers the datatype
 
 Explicit --> using the casting operator.
-In assignment: `dest_type a = (dest_type) b`{:.c}
-In expresssion: `dest_type a = (dest_type) b / c`{:.c}
+
+In assignment: `dest_type a = (dest_type) b`
+
+In expresssion: `dest_type a = (dest_type) b / c`
 
 > type conversion is the process of converting one data type to another, may or may not be using the casting operator, performed by the compiler. (superset of type casting)
 
