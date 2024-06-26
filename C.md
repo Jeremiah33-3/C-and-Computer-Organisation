@@ -464,6 +464,7 @@ _- https://stackoverflow.com/questions/1358400/what-is-external-linkage-and-inte
 
 1. sizeof(data type)
   - gets the size of the data type in bytes (e.g. sizeof(int))
+  - note: sizeof is an [operator](https://www.geeksforgeeks.org/sizeof-operator-c/) 
 2. scanf()
   - note: scaf(%d, &age) -> need & for address of operator 
 3. printf()
