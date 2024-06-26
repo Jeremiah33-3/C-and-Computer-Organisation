@@ -26,6 +26,7 @@ If `arr` is the name of the array declared
 - `arr` refers const pointer to the address of the first element in the array (array names converted to pointers)
 - `&arr[0]` refers to the address of the first element in the array
 - `&arr` is the pointer to the ***entire*** array
+
 Thus the implication is:
 - incrementing both `arr` and `&arr[0]` by 1 gives the address of the ***next element***：  `arr+1` and `&arr[0]+1`
 - incrementing `&arr` increment the address by the size of the array (e.g if arr size is 40, `&arr+1` will gives an address {address of first element} + 40)
