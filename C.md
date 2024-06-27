@@ -290,7 +290,7 @@ C is high level lang -> but the lower end of the spectrum is due to:
     - may result in illegal access of memory if not properly handled by '\0'
   - cannot assign string value directly -> strcpy
 
-3. structure
+3. [structure](https://www.geeksforgeeks.org/structures-c/)
 > structure allow grouping of heterogeneous members of different types, a group canbe a member of another group  (structure type, a new data type)
 - typedef struct { data..} struct_name
 - note: a type is NOT a variable (data type vs var)
