@@ -94,6 +94,11 @@ Implicit type conversion is automatic, done by the compiler on its own. Takes pl
 
 Explicit type conversion is type casting
 
+### [Integer promotion](https://www.geeksforgeeks.org/integer-promotions-in-c/)
+> data types being automatically promoted/converted into integer IN AN EXPRESSION involving ARITHMETIC OPERATION. A subset of implicit converion done by the compiler
+
+Either int or unsigned int.
+
  
 ## [Static and dynamic library ](https://www.geeksforgeeks.org/static-vs-dynamic-libraries/)
 Compilation of code -> linker links library functions to code -> 2 ways to do it 
