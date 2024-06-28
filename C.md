@@ -442,6 +442,11 @@ Arithmetic operations (in order of precedence):
 - generally: execution is left associative, respects parentheses rule, then precedence rule, then associative rule
 - truncate result if result can't be stored  (e.g. int n...; n = 9 * 4.5)
 - [pre-increment (++expr) vs post increment (expr++) ](https://www.geeksforgeeks.org/pre-increment-and-post-increment-in-c/)
+  - pre-increment operator increment the value of a var BEFORE using it in an expression
+  - post-increment operator increment the value of a var AFTER using it in an expression
+  - they have different precedence and associativity too (precedence of postfix > prefix; postfix is left associative, prefix is right associative)
+
+A more detailed Operator Precedence and Associativity article can he found [here](https://www.geeksforgeeks.org/operator-precedence-and-associativity-in-c/).
 
 Mixed-type arthmetic operators:
 - when type casting and arithemetic operations occur in a statement
