@@ -131,6 +131,8 @@ C is high level lang -> but the lower end of the spectrum is due to:
 - pointers which allow direct manipulation of memory contents
 - has a set of manipulation operators, allowing efficient bitwise operations
 
+All pointer variables have the same size ( either 4 bytes or 8 bytes depending on the OS), yet it is still crucial to declare the pointer var to the correct type it is intended to point to as type declaration is needed in the pointer for dereferencing and pointer arithmetic purposes. This is especially obvious when we perform arithmetic operations on the pointer such as incrementing/decrementing the ptr --> the ptr will point to a new address that is incremented by the type it is declared as (e.g., int *p, p++ will increment the address by 4 bytes)
+
 **address**
 - imagine memory like pigeonholes with numbers (use to identity the slot) -> which is formally known as address
 - a variable occupies some space in the com mem, and hence it han an address
