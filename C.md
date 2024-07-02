@@ -249,6 +249,7 @@ All pointer variables have the same size ( either 4 bytes or 8 bytes depending o
 - array and pointers
   - when the arr name a appears in an expr, it refers to the address of the first element (ie &a[0]) of that array; printf("%p\n", a);)
   -  using memcpy() in <string.h> library function to copy one arr to another (out of syllabus)
+  -  array pointers subtraction --> &arr[n - 1] - &arr[0] = n - 1 (the number of elements between the last elements and the first inclusive)
 - array params in functions
   - returntype func_name(type [] ...)
   - note the arr name is a pointer to the arr -> passing it into param copies the content of the arr over to a new arr (local function)
