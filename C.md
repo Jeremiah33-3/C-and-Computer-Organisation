@@ -161,6 +161,21 @@ All pointer variables have the same size ( either 4 bytes or 8 bytes depending o
   - can decalre double a, b*;
   - if you want to print out the value of a pointer, just printf("%d.., *p1)
   - *p1 refers to the address of the var the pointer is pointing to, hence the value; (*p1)++: bracket needed as dereferencing operator has a lower precedence than the increment operator -> no bracket, pointer will be increment first then do a dereference (increment var vs increment pointer)
+  - [pointer to pointer / double pointer]([url](https://www.geeksforgeeks.org/c-pointer-to-pointer-double-pointer/))
+```c
+...
+type ** ppa = &pa // where pa is a pointer var
+**ppa = some_value // dereferencing two times to get the var that is pointed to by pa
+type* parr[10] = {pa, ppa} // an array of pointers
+
+// make 2-D array by declaring pointer to pointer
+int arr1[4] = {0};
+int arr2[4] = {0};
+int arr3[4] = {0};
+
+int* parr[3] = {arr1, arr2, arr3}; //array name = address of its first element
+printf("%d", parr[0][1]); // 0
+```
 
 **incrementing pointer**
 - recall data types take up a fixed bytes always (e.g. int is ususally 4 bytes)
