@@ -344,6 +344,18 @@ printf("%d", parr[0][1]); // 0
   - as a parameter in a function is akin to assigning the structure to the parameter
   - the entire structure is copied (i.e. members of the actual param are copied into the corresponding members of the formal parameter)
   - pass-by-value
+  - can pass the structure or pointer var to the structure to the function, and the access of members might be slightly different:
+```c
+void func(struct Name n)
+{
+  n.attr; // accessing member through dot operator
+}
+// need to pass in the pointer to the struct!
+void func(struct Name* n)
+{
+  n->attr; // accessing member through arrow operator
+}
+```
 - combine structure and array: give lot of flexibility in organising data
 - pass address of structure to function
   - pass structure to function is just copying the value over (pass by value) -> a separate copy of it is made in the called function
