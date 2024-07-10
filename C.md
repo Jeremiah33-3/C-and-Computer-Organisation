@@ -279,6 +279,9 @@ printf("%d", parr[0][1]); // 0
     - no need to use address operator since the arr itself is a pointer
     - but func can modify the content of the arr it received whether you intend or not (implication)
     - thats mean when array is passed into it, `sizeof` operation on the array gives 8 bytes because that is the size of the pointer datatype
+  ### multidimensional array
+  - [pointer to MD array](https://stackoverflow.com/questions/14808908/pointer-to-2d-arrays-in-c)
+    - `int (p*)[5] = &arr` where arr[3][5] is a 2D array will be a pointer to the first element of the array, each increment will increase by the size of the row to the next row. Then to access elements, we can `*( *(p + i) + j)` as deferencing here: `*(p+i)` gives `p[i]` (the 'inner' array)
 
 2. strings
 > an array of chars with a null character "\0" at the end of the array (terminated by)
@@ -344,7 +347,7 @@ printf("%d", parr[0][1]); // 0
   - as a parameter in a function is akin to assigning the structure to the parameter
   - the entire structure is copied (i.e. members of the actual param are copied into the corresponding members of the formal parameter)
   - pass-by-value
-  - can pass the structure or pointer var to the structure to the function, and the access of members might be slightly different:
+  - can pass the structure or pointer var to the structure to the function, and the access of members might be slightly different, but pass in by pointer is preferred so to ensure efficiency is not compromised when passing in structs that are very big in size:
 ```c
 void func(struct Name n)
 {
