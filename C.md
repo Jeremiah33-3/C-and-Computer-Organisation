@@ -238,6 +238,14 @@ printf("%d", parr[0][1]); // 0
   - in definition, we pass in the pointers to the vars
   - dereference the pointer (go to the var the pointer is pointing to directly)
 
+**pointer to a function**
+- [guide](https://www.geeksforgeeks.org/function-pointer-in-c/)
+- `return_type (*func_ptr)(param_type) = &func` or `return_type (*func_ptr)(param_type) = func`
+  - function names can also get functions' addresses as well like array names
+- pass in argument by `(*func_ptr)(arg);` or `func_ptr(arg);` if you used the function's name directly
+- `*(void(*)())0` can be a pointer to a function type just like int*, char*... with 0 as the address that could store a function
+- rename: `typedef void (* pf_t)(int); // void(*)(int) renamed to pf_t`
+
 **common mistake**
 - accessing var in main() func in a user-defined func
 
@@ -279,7 +287,18 @@ printf("%d", parr[0][1]); // 0
     - no need to use address operator since the arr itself is a pointer
     - but func can modify the content of the arr it received whether you intend or not (implication)
     - thats mean when array is passed into it, `sizeof` operation on the array gives 8 bytes because that is the size of the pointer datatype
-  ### multidimensional array
+
+### [Pointer to array](https://www.geeksforgeeks.org/pointer-array-array-pointer/)
+- a nuance between pointer to the 0th element of the array and pointer to the entire array
+```c
+...
+int arr[5] = {0};
+int* p = arr; // pointer to the 0th element; p++ increase by the size of the data type
+int (*ptr)[5] = $arr; // pointer to the entire array; ptr++ increase by the total size of the array
+```
+- to declare pointer to array of pointers, note the type is: `datatype** p = arr;`
+
+### multidimensional array
   - [pointer to MD array](https://stackoverflow.com/questions/14808908/pointer-to-2d-arrays-in-c)
     - `int (p*)[5] = &arr` where arr[3][5] is a 2D array will be a pointer to the first element of the array, each increment will increase by the size of the row to the next row. Then to access elements, we can `*( *(p + i) + j)` as deferencing here: `*(p+i)` gives `p[i]` (the 'inner' array)
 
