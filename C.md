@@ -245,6 +245,8 @@ printf("%d", parr[0][1]); // 0
 - pass in argument by `(*func_ptr)(arg);` or `func_ptr(arg);` if you used the function's name directly
 - `*(void(*)())0` can be a pointer to a function type just like int*, char*... with 0 as the address that could store a function
 - rename: `typedef void (* pf_t)(int); // void(*)(int) renamed to pf_t`
+- array of function pointers (function pointer of the same type, meaning return value, argument lengths and types should be the same): `return_t (*arr[n])(...arg_type) = {...function_names};`
+  - can straightaway call arr[i](args)
 
 **common mistake**
 - accessing var in main() func in a user-defined func
