@@ -193,6 +193,11 @@ printf("%d", parr[0][1]); // 0
   1. to pass the addresses of two or more var to a function so that the function can pass back to its caller new values of the var
   2. to pass the address of the first element of an array to a function so that the function can access all elements in the array (then use pointer arithmetic to access the rest; useful when array is very large)
 
+**void pointers**
+- `void* e1`
+- when you can't confirm the type which the pointer is pointing to, usually when a standard function is receiving a pointer as argument
+- can use type casting when initialising the function e.g. `*(int*)e1`
+
 2. Functions
 - libraries offering functions for you to use
 - function prototype -> what type the func returns, and what arguments it expect (e.g. <stdio.h> has func prototypes)
