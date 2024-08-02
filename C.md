@@ -340,7 +340,35 @@ int (*ptr)[5] = $arr; // pointer to the entire array; ptr++ increase by the tota
     - to be treated as a string, arr of char must be terminated with null char
     - string functions cannot work properly on arr of char
     - may result in illegal access of memory if not properly handled by '\0'
-  - cannot assign string value directly -> strcpy
+  - cannot assign string value directly -> strcpy or use a pointer:
+```c
+#include <string.h>
+
+char str[50] = "a string";
+strcpy(str, "New Value");
+// can't do this: str = "another"; 
+
+// or pointer:
+char *str = "Hello, World!";
+str = "New Value";
+```
+  - string literals are immutable in c, but character array is mutable:
+```c
+#include <stdio.h>
+int main() {
+    // String literal (immutable)
+    char *immutable_string = "hello";
+    // Attempting to modify a string literal results in undefined behavior
+    // immutable_string[0] = 'H';  // DON'T DO THIS!
+
+    // Character array (mutable)
+    char mutable_string[] = "hello";
+    mutable_string[0] = 'H';  // Modifies the string
+    printf("%s\n", mutable_string);  // Output: "Hello"
+
+    return 0;
+}
+```
 
 3. [structure](https://www.geeksforgeeks.org/structures-c/)
 > structure allow grouping of heterogeneous members of different types, a group canbe a member of another group  (structure type, a new data type)
